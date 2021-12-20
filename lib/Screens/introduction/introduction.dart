@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:grocery/Screens/loginscreen/login.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Introduction extends StatefulWidget {
@@ -13,6 +14,7 @@ class _IntroductionState extends State<Introduction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Container(
@@ -61,8 +63,8 @@ class _IntroductionState extends State<Introduction> {
                   ),
                   InkWell(
                     onTap: () {
-                      // Navigator.of(context)
-                      //     .pushReplacement(MaterialPageRoute(builder: (_)=> ));
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => Login()));
                     },
                     child: Container(
                       alignment: Alignment.center,
