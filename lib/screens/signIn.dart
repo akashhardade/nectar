@@ -50,37 +50,31 @@ class _SignInState extends State<SignIn> {
                   ),
                   Container(
                     child: TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: Row(
+                          children: [
+                            Image(
+                              width: 20,
+                              height: 20,
+                              image: AssetImage("assets/images/afg.png"),
+                              fit: BoxFit.fill,
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text("+93"),
+                          ],
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
+                      ),
                       onTap: () {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (_) => Number()));
                       },
-                      decoration: InputDecoration(
-                          prefix:
-                              SvgPicture.asset("assets/images/Rectangle.svg")),
                     ),
                   )
-                  // Container(
-                  //   child: InternationalPhoneNumberInput(
-                  //     hintText: "",
-                  //     onInputChanged: (PhoneNumber number) {},
-                  //     onInputValidated: (bool value) {},
-                  //     selectorConfig: const SelectorConfig(
-                  //       selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  //       setSelectorButtonAsPrefixIcon: true,
-                  //       leadingPadding: 20,
-                  //       useEmoji: true,
-                  //     ),
-                  //     ignoreBlank: false,
-                  //     autoValidateMode: AutovalidateMode.disabled,
-                  //     selectorTextStyle: TextStyle(color: Colors.black),
-                  //     formatInput: false,
-                  //     keyboardType: TextInputType.numberWithOptions(
-                  //         signed: true, decimal: true),
-                  //     inputBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide(color: Colors.black)),
-                  //     onSaved: (PhoneNumber number) {},
-                  //   ),
-                  // )
                 ],
               ),
             ),
@@ -141,29 +135,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-
-
-
-// Container(
-//                     child: InternationalPhoneNumberInput(
-                      
-//                       hintText: "",
-//                       onInputChanged: (PhoneNumber number) {},
-//                       onInputValidated: (bool value) {},
-//                       selectorConfig: const SelectorConfig(
-//                         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-//                         setSelectorButtonAsPrefixIcon: true,
-//                         leadingPadding: 20,
-//                         useEmoji: true,
-//                       ),
-//                       ignoreBlank: false,
-//                       autoValidateMode: AutovalidateMode.disabled,
-//                       selectorTextStyle: TextStyle(color: Colors.black),
-//                       formatInput: false,
-//                       keyboardType: TextInputType.numberWithOptions(
-//                           signed: true, decimal: true),
-//                       inputBorder: OutlineInputBorder(
-//                           borderSide: BorderSide(color: Colors.black)),
-//                       onSaved: (PhoneNumber number) {},
-//                     ),
-//                   )
