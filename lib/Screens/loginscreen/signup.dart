@@ -116,16 +116,16 @@ class _SignUpState extends State<SignUp> {
                       Row(
                         children: [
                           Text("By continuing you agree to our",
-                              style: TextStyle(fontSize: 16)),
+                              style: TextStyle(fontSize: 14)),
                           Text(" Terms of Service",
-                              style: TextStyle(color: kgreen, fontSize: 16)),
+                              style: TextStyle(color: kgreen, fontSize: 14)),
                         ],
                       ),
                       Row(
                         children: [
-                          Text("and", style: TextStyle(fontSize: 16)),
+                          Text("and", style: TextStyle(fontSize: 14)),
                           Text(" Privacy policy",
-                              style: TextStyle(color: kgreen, fontSize: 16)),
+                              style: TextStyle(color: kgreen, fontSize: 14)),
                         ],
                       ),
                     ],

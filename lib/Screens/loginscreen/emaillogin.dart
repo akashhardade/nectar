@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:grocery/Screens/homescreen/Homepage.dart';
 import 'package:grocery/Screens/loginscreen/signup.dart';
 import 'package:grocery/constant/constant.dart';
 
@@ -100,8 +101,8 @@ class _EmailLoginState extends State<EmailLogin> {
               alignment: Alignment.center,
               child: InkWell(
                 onTap: () {
-                  // Navigator.of(context).pushReplacement(
-                  //     MaterialPageRoute(builder: (_) => ));
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => HomePage()));
                 },
                 child: Container(
                   height: 50,
