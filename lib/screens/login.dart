@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:nectar/bottombar/bottombar.dart';
 import 'package:nectar/screens/constants.dart';
 import 'package:nectar/screens/signup.dart';
 
@@ -91,7 +92,6 @@ class _LoginState extends State<Login> {
                           EmailValidator(
                             errorText: "Please enter a valid Email",
                           ),
-                          
                         ]),
                       ),
                       SizedBox(
@@ -149,7 +149,10 @@ class _LoginState extends State<Login> {
                           style: TextStyle(
                               fontFamily: 'Gilory-Light', fontSize: 18),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (_) => BottomBar()));
+                        },
                         style: ElevatedButton.styleFrom(
                           shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(20),
