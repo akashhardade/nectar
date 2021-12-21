@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:grocery/Screens/loginscreen/otpverify.dart';
 import 'package:grocery/constant/constant.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class MobileLogin extends StatefulWidget {
   MobileLogin({Key? key}) : super(key: key);
@@ -10,7 +13,6 @@ class MobileLogin extends StatefulWidget {
 }
 
 class _MobileLoginState extends State<MobileLogin> {
-  TextEditingController _searchcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,34 +42,27 @@ class _MobileLoginState extends State<MobileLogin> {
                 height: 20,
               ),
               Text("Mobile Number"),
-              TextFormField(
-                controller: _searchcontroller,
-                autofocus: true,
-                decoration: InputDecoration(
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+              Container(
+                child: InternationalPhoneNumberInput(
+                  maxLength: 10,
+                  hintText: "",
+                  onInputChanged: (PhoneNumber number) {},
+                  onInputValidated: (bool value) {},
+                  selectorConfig: const SelectorConfig(
+                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                    setSelectorButtonAsPrefixIcon: true,
+                    leadingPadding: 20,
+                    useEmoji: true,
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
-                  ),
-                  prefixIcon: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image(
-                        width: 25,
-                        height: 25,
-                        image: AssetImage("assets/images/india.png"),
-                        fit: BoxFit.fill,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text("+91"),
-                      SizedBox(
-                        width: 10,
-                      ),
-                    ],
-                  ),
+                  ignoreBlank: false,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  selectorTextStyle: TextStyle(color: Colors.black),
+                  formatInput: false,
+                  keyboardType: TextInputType.numberWithOptions(
+                      signed: true, decimal: true),
+                  inputBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
+                  onSaved: (PhoneNumber number) {},
                 ),
               ),
             ],
@@ -80,7 +75,10 @@ class _MobileLoginState extends State<MobileLogin> {
             Icons.keyboard_arrow_right,
             size: 30,
           ),
-          onPressed: () {}),
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (_) => OtpVerify()));
+          }),
     );
   }
 }
