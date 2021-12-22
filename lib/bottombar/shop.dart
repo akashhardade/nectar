@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/bottombar/product_detail.dart';
 import 'package:nectar/screens/constants.dart';
 
 class Shop extends StatefulWidget {
@@ -9,6 +10,7 @@ class Shop extends StatefulWidget {
 }
 
 class _ShopState extends State<Shop> {
+  int currentindex = 0;
   List<Map> product = [
     {
       "exclusive": [
@@ -175,95 +177,108 @@ class _ShopState extends State<Shop> {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                height: 350,
-                                width: 160,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: Image(
-                                          image: AssetImage(product[0]
-                                              ["exclusive"][index]["image"])),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.99,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              product[0]["exclusive"][index]
-                                                  ["title"],
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                      "Gilroy-ExtraBold",
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
-                                                  fontSize: 18),
-                                            ),
-                                            SizedBox(height: 15),
-                                            Text(
-                                              product[0]["exclusive"][index]
-                                                  ["description"],
-                                              style: TextStyle(
-                                                  fontFamily: "Gilroy-Light",
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black,
-                                                  fontSize: 16),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  "\$ ${product[0]["exclusive"][index]["price"]}",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                InkWell(
-                                                  child: Container(
-                                                    height: 40,
-                                                    width: 40,
-                                                    decoration: BoxDecoration(
-                                                      color: kPrimaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.add,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentindex = index;
+                                  });
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => Detail(
+                                            product: product[0]["exclusive"]
+                                                [currentindex],
+                                          )));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  height: 350,
+                                  width: 160,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: Image(
+                                            image: AssetImage(product[0]
+                                                ["exclusive"][index]["image"])),
                                       ),
-                                    )
-                                  ],
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.99,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                product[0]["exclusive"][index]["title"],
+                                                // " ${Data[index]["id"]}",
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        "Gilroy-ExtraBold",
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 18),
+                                              ),
+                                              SizedBox(height: 15),
+                                              Text(
+                                                product[0]["exclusive"][index]
+                                                    ["description"],
+                                                style: TextStyle(
+                                                    fontFamily: "Gilroy-Light",
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black,
+                                                    fontSize: 16),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "\$ ${product[0]["exclusive"][index]["price"]}",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  InkWell(
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: kPrimaryColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -297,95 +312,109 @@ class _ShopState extends State<Shop> {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                height: 350,
-                                width: 160,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: Image(
-                                          image: AssetImage(product[0]
-                                              ["bestselling"][index]["image"])),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.99,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              product[0]["bestselling"][index]
-                                                  ["title"],
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                      "Gilroy-ExtraBold",
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
-                                                  fontSize: 18),
-                                            ),
-                                            SizedBox(height: 15),
-                                            Text(
-                                              product[0]["bestselling"][index]
-                                                  ["description"],
-                                              style: TextStyle(
-                                                  fontFamily: "Gilroy-Light",
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black,
-                                                  fontSize: 16),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  "\$ ${product[0]["bestselling"][index]["price"]}",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                InkWell(
-                                                  child: Container(
-                                                    height: 40,
-                                                    width: 40,
-                                                    decoration: BoxDecoration(
-                                                      color: kPrimaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.add,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentindex = index;
+                                  });
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => Detail(
+                                            product: product[0]["bestselling"]
+                                                [currentindex],
+                                          )));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  height: 350,
+                                  width: 160,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: Image(
+                                            image: AssetImage(product[0]
+                                                    ["bestselling"][index]
+                                                ["image"])),
                                       ),
-                                    )
-                                  ],
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.99,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                product[0]["bestselling"][index]
+                                                    ["title"],
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        "Gilroy-ExtraBold",
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 18),
+                                              ),
+                                              SizedBox(height: 15),
+                                              Text(
+                                                product[0]["bestselling"][index]
+                                                    ["description"],
+                                                style: TextStyle(
+                                                    fontFamily: "Gilroy-Light",
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black,
+                                                    fontSize: 16),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "\$ ${product[0]["bestselling"][index]["price"]}",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  InkWell(
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: kPrimaryColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -421,7 +450,6 @@ class _ShopState extends State<Shop> {
                                         BorderRadius.all(Radius.circular(20))),
                                 height: 90,
                                 width: 200,
-                                // color: Colors.amber[50],
                                 child: Row(
                                   children: [
                                     Padding(
@@ -487,95 +515,108 @@ class _ShopState extends State<Shop> {
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20))),
-                                height: 350,
-                                width: 160,
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: Image(
-                                          image: AssetImage(product[0]
-                                              ["groceries"][index]["image"])),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.99,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              product[0]["groceries"][index]
-                                                  ["title"],
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                      "Gilroy-ExtraBold",
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black,
-                                                  fontSize: 18),
-                                            ),
-                                            SizedBox(height: 15),
-                                            Text(
-                                              product[0]["groceries"][index]
-                                                  ["description"],
-                                              style: TextStyle(
-                                                  fontFamily: "Gilroy-Light",
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.black,
-                                                  fontSize: 16),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  "\$ ${product[0]["groceries"][index]["price"]}",
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                InkWell(
-                                                  child: Container(
-                                                    height: 40,
-                                                    width: 40,
-                                                    decoration: BoxDecoration(
-                                                      color: kPrimaryColor,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                    child: Icon(
-                                                      Icons.add,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentindex = index;
+                                  });
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => Detail(
+                                            product: product[0]["groceries"]
+                                                [currentindex],
+                                          )));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  height: 350,
+                                  width: 160,
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: Image(
+                                            image: AssetImage(product[0]
+                                                ["groceries"][index]["image"])),
                                       ),
-                                    )
-                                  ],
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.99,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                product[0]["groceries"][index]
+                                                    ["title"],
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        "Gilroy-ExtraBold",
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                    fontSize: 18),
+                                              ),
+                                              SizedBox(height: 15),
+                                              Text(
+                                                product[0]["groceries"][index]
+                                                    ["description"],
+                                                style: TextStyle(
+                                                    fontFamily: "Gilroy-Light",
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.black,
+                                                    fontSize: 16),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    "\$ ${product[0]["groceries"][index]["price"]}",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  InkWell(
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 40,
+                                                      decoration: BoxDecoration(
+                                                        color: kPrimaryColor,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
