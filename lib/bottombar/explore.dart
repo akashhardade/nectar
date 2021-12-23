@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nectar/bottombar/productlist.dart';
 import 'package:nectar/classmodel.dart';
 
 class Explore extends StatefulWidget {
@@ -10,6 +13,16 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
+  final _random = Random();
+  int currentindex = 0;
+  List<int> color = [
+    0xff53B175,
+    0xffF8A44C,
+    0xffB7DFF5,
+    0xff53B175,
+    0xffF8A44C,
+    0xff53B175,
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,14 +78,50 @@ class _ExploreState extends State<Explore> {
                                   // childAspectRatio: 3 / 2,
                                   crossAxisSpacing: 20,
                                   mainAxisSpacing: 20),
-                          itemCount: data.length,
+                          itemCount: categorylist.length,
                           itemBuilder: (BuildContext ctx, index) {
-                            return Container(
-                              alignment: Alignment.center,
-                              child: Text("${data[index]["category"]}"),
-                              decoration: BoxDecoration(
-                                  color: Color(0xff53B175),
-                                  borderRadius: BorderRadius.circular(15)),
+                            return InkWell(
+                              onTap: () {
+                                setState(() {
+                                  currentindex = index;
+                                });
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => ProductList(
+                                        product: categorylist[currentindex])));
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 11),
+                                  child: Column(
+                                    //   mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image(
+                                          height: 100,
+                                          width: 100,
+                                          image: AssetImage(
+                                              "${categorylist[index]["image"]}")),
+                                      Text(
+                                        "${categorylist[index]["category"]}",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Color(color[index]).withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border.all(
+                                    color: Color(color[index]),
+                                  ),
+                                ),
+                              ),
                             );
                           }),
                     ),
