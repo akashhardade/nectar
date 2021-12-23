@@ -83,8 +83,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.remove),
-                          onPressed: () => {
+                          icon: Icon(Icons.remove,color: _itemCount >=1 ? kgreen : Colors.grey),
+                          onPressed: () => { 
                             if (_itemCount >= 1) {setState(() => _itemCount--)}
                           },
                         ),
@@ -97,7 +97,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 border: Border.all(color: Colors.black38)),
                             child: Text(_itemCount.toString())),
                         IconButton(
-                            icon: Icon(Icons.add),
+                            icon: Icon(Icons.add,color:kgreen),
                             onPressed: () => setState(() => _itemCount++))
                       ],
                     ),

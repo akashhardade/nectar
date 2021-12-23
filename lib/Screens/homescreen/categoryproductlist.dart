@@ -60,10 +60,13 @@ class _CategoryProductListState extends State<CategoryProductList> {
                         border: Border.all(color: Colors.grey),
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    height: 400,
+                    height: 420,
                     width: 160,
                     child: Column(
                       children: [
+                        SizedBox(
+                          height: 7,
+                        ),
                         SizedBox(
                           height: 100,
                           width: 100,
