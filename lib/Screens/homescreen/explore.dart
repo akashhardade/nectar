@@ -9,6 +9,8 @@ class Explore extends StatefulWidget {
 class _ExploreState extends State<Explore> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+     
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/Screens/homescreen/productdetails.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Shop extends StatefulWidget {
@@ -83,6 +84,8 @@ class _ShopState extends State<Shop> {
     },
   ];
 
+  int currentindex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,74 +164,85 @@ class _ShopState extends State<Shop> {
                               padding: const EdgeInsets.only(
                                 right: 15.0,
                               ),
-                              child: Container(
-                                height: 250,
-                                width: 180,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 15),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 18,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Image(
-                                            height: 95,
-                                            image: AssetImage(
-                                                "${products[0]["exclusive"][index]["image"]}")),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 10,
-                                          bottom: 10,
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentindex = index;
+                                  });
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => ProductDetails(
+                                          product: products[0]["exclusive"]
+                                              [currentindex])));
+                                },
+                                child: Container(
+                                  height: 250,
+                                  width: 180,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 18,
                                         ),
-                                        child: Text(
-                                            "${products[0]["exclusive"][index]["title"]}",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18)),
-                                      ),
-                                      Text(
-                                          "${products[0]["exclusive"][index]["description"]} price"),
-                                      SizedBox(
-                                        height: 18,
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                              "\$ ${products[0]["exclusive"][index]["price"]}",
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Image(
+                                              height: 95,
+                                              image: AssetImage(
+                                                  "${products[0]["exclusive"][index]["image"]}")),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 10,
+                                            bottom: 10,
+                                          ),
+                                          child: Text(
+                                              "${products[0]["exclusive"][index]["title"]}",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18)),
-                                          SizedBox(
-                                            width: 60,
-                                          ),
-                                          InkWell(
-                                            child: Container(
-                                              height: 40,
-                                              width: 40,
-                                              decoration: BoxDecoration(
-                                                color: kgreen,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Icon(Icons.add),
+                                        ),
+                                        Text(
+                                            "${products[0]["exclusive"][index]["description"]} price"),
+                                        SizedBox(
+                                          height: 18,
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                                "\$ ${products[0]["exclusive"][index]["price"]}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18)),
+                                            SizedBox(
+                                              width: 60,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                            InkWell(
+                                              child: Container(
+                                                height: 40,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                  color: kgreen,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Icon(Icons.add),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -270,74 +284,86 @@ class _ShopState extends State<Shop> {
                                 top: 10.0,
                                 right: 15,
                               ),
-                              child: Container(
-                                height: 250,
-                                width: 180,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 15),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 18,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Image(
-                                            height: 90,
-                                            image: AssetImage(
-                                                "${products[0]["bestselling"][index]["image"]}")),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 10,
-                                          bottom: 10,
+                              child: InkWell(
+                                onTap: () {
+                                   setState(() {
+                                    currentindex = index;
+                                  });
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => ProductDetails(
+                                          product: products[0]["bestselling"]
+                                              [currentindex])));
+
+                                },
+                                child: Container(
+                                  height: 250,
+                                  width: 180,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 18,
                                         ),
-                                        child: Text(
-                                            "${products[0]["bestselling"][index]["title"]}",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18)),
-                                      ),
-                                      Text(
-                                          "${products[0]["bestselling"][index]["description"]} price"),
-                                      SizedBox(
-                                        height: 18,
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                              "\$ ${products[0]["bestselling"][index]["price"]}",
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Image(
+                                              height: 90,
+                                              image: AssetImage(
+                                                  "${products[0]["bestselling"][index]["image"]}")),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 10,
+                                            bottom: 10,
+                                          ),
+                                          child: Text(
+                                              "${products[0]["bestselling"][index]["title"]}",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18)),
-                                          SizedBox(
-                                            width: 60,
-                                          ),
-                                          InkWell(
-                                            child: Container(
-                                              height: 40,
-                                              width: 40,
-                                              decoration: BoxDecoration(
-                                                color: kgreen,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Icon(Icons.add),
+                                        ),
+                                        Text(
+                                            "${products[0]["bestselling"][index]["description"]} price"),
+                                        SizedBox(
+                                          height: 18,
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                                "\$ ${products[0]["bestselling"][index]["price"]}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18)),
+                                            SizedBox(
+                                              width: 60,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                            InkWell(
+                                              child: Container(
+                                                height: 40,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                  color: kgreen,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Icon(Icons.add),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -449,74 +475,85 @@ class _ShopState extends State<Shop> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(right: 15.0),
-                              child: Container(
-                                height: 250,
-                                width: 180,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 15),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 18,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Image(
-                                            height: 75,
-                                            image: AssetImage(
-                                                "${products[0]["groceries"][index]["image"]}")),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 10,
-                                          bottom: 10,
+                              child: InkWell(
+                                onTap: () {
+                                    setState(() {
+                                    currentindex = index;
+                                  });
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => ProductDetails(
+                                          product: products[0]["groceries"]
+                                              [currentindex])));
+                                },
+                                child: Container(
+                                  height: 250,
+                                  width: 180,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 15),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 18,
                                         ),
-                                        child: Text(
-                                            "${products[0]["groceries"][index]["title"]}",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18)),
-                                      ),
-                                      Text(
-                                          "${products[0]["groceries"][index]["description"]} price"),
-                                      SizedBox(
-                                        height: 40,
-                                      ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                              "\$ ${products[0]["groceries"][index]["price"]}",
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: Image(
+                                              height: 75,
+                                              image: AssetImage(
+                                                  "${products[0]["groceries"][index]["image"]}")),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 10,
+                                            bottom: 10,
+                                          ),
+                                          child: Text(
+                                              "${products[0]["groceries"][index]["title"]}",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18)),
-                                          SizedBox(
-                                            width: 60,
-                                          ),
-                                          InkWell(
-                                            child: Container(
-                                              height: 40,
-                                              width: 40,
-                                              decoration: BoxDecoration(
-                                                color: kgreen,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: Icon(Icons.add),
+                                        ),
+                                        Text(
+                                            "${products[0]["groceries"][index]["description"]} price"),
+                                        SizedBox(
+                                          height: 40,
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                                "\$ ${products[0]["groceries"][index]["price"]}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18)),
+                                            SizedBox(
+                                              width: 60,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                            InkWell(
+                                              child: Container(
+                                                height: 40,
+                                                width: 40,
+                                                decoration: BoxDecoration(
+                                                  color: kgreen,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Icon(Icons.add),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
