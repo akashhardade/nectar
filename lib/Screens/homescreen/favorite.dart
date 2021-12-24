@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/constant/constant.dart';
 
 class Favorite extends StatefulWidget {
   Favorite({Key? key}) : super(key: key);
@@ -22,7 +23,32 @@ class _FavoriteState extends State<Favorite> {
                 fontSize: 25)),
         elevation: 1,
       ),
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 60,
+              width: MediaQuery.of(context).size.width * 0.90,
+              child: ElevatedButton(
+                child: Text(
+                  'Add All To Cart',
+                  style: TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
+                ),
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(20),
+                  ),
+                  primary: kgreen,
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
       body: ListView.builder(
+          shrinkWrap: true,
           itemCount: 2,
           itemBuilder: (context, index) {
             return Padding(
@@ -37,7 +63,7 @@ class _FavoriteState extends State<Favorite> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [ 
+                  children: [
                     Image(
                       height: 100,
                       width: 100,
