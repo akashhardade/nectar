@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                         height: 10,
                       ),
                       Text(
-                        "Loging",
+                        "Login",
                         style: TextStyle(
                             fontFamily: "Gilroy-Light",
                             fontSize: 22,

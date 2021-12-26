@@ -26,7 +26,8 @@ class _DetailState extends State<Detail> {
                     color: Color(0xffF2F3F2),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20))),
+                        bottomRight: Radius.circular(20))
+                        ),
                 height: 300,
                 width: double.infinity,
               ),

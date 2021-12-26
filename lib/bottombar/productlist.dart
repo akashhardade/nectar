@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nectar/screens/constants.dart';
 
 class ProductList extends StatefulWidget {
@@ -14,26 +15,31 @@ class _ProductListState extends State<ProductList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: Icon(
-                Icons.keyboard_arrow_left,
-                color: Colors.black,
-                size: 40,
-              )),
-          title: Text(
-            "${widget.product["category"]}",
-            style: TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
-          )),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(
+              Icons.keyboard_arrow_left,
+              color: Colors.black,
+              size: 40,
+            )),
+        title: Text(
+          "${widget.product["category"]}",
+          style: TextStyle(
+              fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset("assets/images/filter.svg"))
+        ],
+      ),
       body: Container(
         child: GridView.builder(
-            //   physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
@@ -45,16 +51,7 @@ class _ProductListState extends State<ProductList> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () {
-                    // setState(() {
-                    //   currentindex = index;
-                    // });
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (_) => Detail(
-                    //           product: product[0]["exclusive"]
-                    //               [currentindex],
-                    //         )));
-                  },
+                  onTap: () {},
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
@@ -77,7 +74,6 @@ class _ProductListState extends State<ProductList> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            // width: MediaQuery.of(context).size.width * 0.99,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -138,17 +134,6 @@ class _ProductListState extends State<ProductList> {
                   ),
                 ),
               );
-              // InkWell(
-              //   onTap: () {},
-              //   child: Container(
-              //     alignment: Alignment.center,
-              //     child:
-              //         Text("${widget.product["subcategory"][index]["title"]}"),
-              //     decoration: BoxDecoration(
-              //         color: Colors.white,
-              //         borderRadius: BorderRadius.circular(15)),
-              //   ),
-              // );
             }),
       ),
     );
