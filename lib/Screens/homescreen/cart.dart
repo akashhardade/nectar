@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/Screens/homescreen/orderaccepted.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Cart extends StatefulWidget {
@@ -56,10 +57,353 @@ class _CartState extends State<Cart> {
                         ))
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                    ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        child: Center(
+                          child: ListView(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom:
+                                            BorderSide(color: Colors.black26))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10, left: 20),
+                                        child: Text(
+                                          "Checkout",
+                                          style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.clear,
+                                            size: 30,
+                                            color: Colors.black,
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom:
+                                            BorderSide(color: Colors.black26))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        "Delivery",
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Select Method",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                size: 30,
+                                                color: Colors.black,
+                                              ))
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom:
+                                            BorderSide(color: Colors.black26))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        "Payment",
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Image(
+                                            width: 20,
+                                            height: 20,
+                                            image: AssetImage(
+                                                "assets/images/card.png"),
+                                            fit: BoxFit.fill,
+                                          ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                size: 30,
+                                                color: Colors.black,
+                                              ))
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom:
+                                            BorderSide(color: Colors.black26))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        "Promo code",
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Pick discount",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                size: 30,
+                                                color: Colors.black,
+                                              ))
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom:
+                                            BorderSide(color: Colors.black26))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 20),
+                                      child: Text(
+                                        "Total cost",
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "\$ 28.16",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.keyboard_arrow_right,
+                                                size: 30,
+                                                color: Colors.black,
+                                              ))
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 12, top: 10),
+                                child: Text(
+                                  "By placing an order you agree to our ",
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 15),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 12),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Terms",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text("And"),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Conditions",
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              SizedBox(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width * 0.90,
+                                child: ElevatedButton(
+                                  child: Text(
+                                    'Track order',
+                                    style: TextStyle(
+                                        fontFamily: 'Gilory-Light',
+                                        fontSize: 18),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (_) => OrderAccepted()));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(20),
+                                    ),
+                                    primary: kgreen,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+
+                  //internet loss page
+
+                  // showDialog(
+                  //     context: context,
+                  //     builder: (context) => AlertDialog(
+                  //           content: Column(
+                  //             mainAxisSize: MainAxisSize.min,
+                  //             children: [
+                  //               Image(
+                  //                   image: AssetImage(
+                  //                       "assets/images/orderfailimg.png")),
+                  //               SizedBox(
+                  //                 height: 40,
+                  //               ),
+                  //               Text("Oops! Order Failed",
+                  //                   style: TextStyle(
+                  //                       fontWeight: FontWeight.bold,
+                  //                       fontSize: 20)),
+                  //               SizedBox(
+                  //                 height: 10,
+                  //               ),
+                  //               Text(
+                  //                 "Something went trubly Wrong",
+                  //                 style: TextStyle(fontSize: 12),
+                  //               ),
+                  //               SizedBox(
+                  //                 height: 30,
+                  //               ),
+                  //               SizedBox(
+                  //                 height: 50,
+                  //                 width: double.infinity,
+                  //                 child: ElevatedButton(
+                  //                   child: Text(
+                  //                     'Please Try Again',
+                  //                     style: TextStyle(
+                  //                         fontFamily: 'Gilory-Light',
+                  //                         fontSize: 18),
+                  //                   ),
+                  //                   onPressed: () {},
+                  //                   style: ElevatedButton.styleFrom(
+                  //                     shape: RoundedRectangleBorder(
+                  //                       borderRadius: BorderRadius.circular(20),
+                  //                     ),
+                  //                     primary: kgreen,
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //               SizedBox(
+                  //                 height: 20,
+                  //               ),
+                  //               TextButton(
+                  //                   onPressed: () {},
+                  //                   child: Text("Back to Home",
+                  //                       style: TextStyle(color: Colors.black))),
+                  //             ],
+                  //           ),
+                  //         )
+                  //         );
+                },
                 style: ElevatedButton.styleFrom(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   primary: kgreen,
                 ),
