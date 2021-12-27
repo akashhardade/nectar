@@ -13,15 +13,14 @@ class Explore extends StatefulWidget {
 }
 
 class _ExploreState extends State<Explore> {
-  final _random = Random();
   int currentindex = 0;
   List<int> color = [
     0xff53B175,
     0xffF8A44C,
+    0xffF7A593,
+    0xffD3B0E0,
+    0xffFDE598,
     0xffB7DFF5,
-    0xff53B175,
-    0xffF8A44C,
-    0xff53B175,
   ];
   @override
   Widget build(BuildContext context) {
@@ -94,7 +93,6 @@ class _ExploreState extends State<Explore> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 11),
                                   child: Column(
-                                    //   mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [

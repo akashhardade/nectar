@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:nectar/bottombar/bottombar.dart';
 import 'package:nectar/screens/constants.dart';
-import 'package:nectar/screens/verification.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+enum LoginScreen { SHOW_MOBILE_ENTER_WIDGET, SHOW_OTP_FORM_WIDGET }
 
 class Number extends StatefulWidget {
   const Number({Key? key}) : super(key: key);
@@ -13,9 +15,29 @@ class Number extends StatefulWidget {
 }
 
 class _NumberState extends State<Number> {
+  final TextEditingController _mobilecontroller = TextEditingController();
+  final TextEditingController _otpcontroller = TextEditingController();
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-  @override
-  Widget build(BuildContext context) {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  LoginScreen currentState = LoginScreen.SHOW_MOBILE_ENTER_WIDGET;
+  String verificationId = "";
+
+  void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
+    try {
+      final authCred = await _auth.signInWithCredential(phoneAuthCredential);
+
+      if (authCred.user != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => BottomBar()));
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Some Error Occured. Try Again Later')));
+    }
+  }
+
+  showMobilePhoneWidget(context) {
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: ImageFiltered(
@@ -49,7 +71,6 @@ class _NumberState extends State<Number> {
                   width: MediaQuery.of(context).size.width * 0.90,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         "Enter Your mobile number",
@@ -70,33 +91,17 @@ class _NumberState extends State<Number> {
                       ),
                       Form(
                         key: _formkey,
-                        child: Container(
-                          child: InternationalPhoneNumberInput(
-                            validator: MultiValidator([
-                              RequiredValidator(errorText: "Required field")
-                            ]),
-                            maxLength: 10,
-                            hintText: "",
-                            onInputChanged: (PhoneNumber number) {},
-                            onInputValidated: (bool value) {},
-                            selectorConfig: const SelectorConfig(
-                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                              setSelectorButtonAsPrefixIcon: true,
-                              leadingPadding: 20,
-                              useEmoji: true,
-                            ),
-                            ignoreBlank: false,
-                            autoValidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            selectorTextStyle: TextStyle(color: Colors.black),
-                            formatInput: false,
-                            keyboardType: TextInputType.numberWithOptions(
-                                signed: true, decimal: true),
-                            inputBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black)),
-                            onSaved: (PhoneNumber number) {},
+                        child: Center(
+                          child: TextField(
+                            controller: _mobilecontroller,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12)),
+                                hintText: "Enter Your PhoneNumber"),
                           ),
                         ),
+                       
                       ),
                     ],
                   )),
@@ -107,16 +112,128 @@ class _NumberState extends State<Number> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: kPrimaryColor,
         onPressed: () async {
-          if (_formkey.currentState!.validate()) {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => Verification()));
-          }
+          await _auth.verifyPhoneNumber(
+              phoneNumber: "+91${_mobilecontroller.text}",
+              verificationCompleted: (verificationCompleted) {},
+              verificationFailed: (verificationFailed) {},
+              codeSent: (verificationId, resendingToken) {
+                setState(() {
+                  currentState = LoginScreen.SHOW_OTP_FORM_WIDGET;
+                  this.verificationId = verificationId;
+                });
+              },
+              codeAutoRetrievalTimeout: (verificationId) {});
+
+         
         },
         child: Icon(
           Icons.chevron_right,
           color: Colors.white,
         ),
       ),
+    );
+  }
+
+  showOtpFormWidget(context) {
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: ImageFiltered(
+          imageFilter: ImageFilter.blur(
+            sigmaX: 95,
+            sigmaY: 10,
+          ),
+          child: Image(
+            image: AssetImage("assets/images/APPB.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+      ),
+      body: SafeArea(
+          child: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.90,
+          child: Form(
+            key: _formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  "Enter Your 4-digit code",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Gilroy-Light",
+                      fontSize: 23,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Code",
+                  style: TextStyle(
+                      color: Colors.black54, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: _otpcontroller,
+                  validator: MultiValidator(
+                      [RequiredValidator(errorText: "Required field")]),
+                  decoration: InputDecoration(
+                      focusColor: Colors.black, hintText: "_ _ _ _"),
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Text(
+                  "Resend code",
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.w400),
+                )
+              ],
+            ),
+          ),
+        ),
+      )),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kPrimaryColor,
+        onPressed: () {
+          AuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+              verificationId: verificationId, smsCode: _otpcontroller.text);
+          signInWithPhoneAuthCred(phoneAuthCredential);
+        
+        },
+        child: Icon(
+          Icons.chevron_right,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: currentState == LoginScreen.SHOW_MOBILE_ENTER_WIDGET
+          ? showMobilePhoneWidget(context)
+          : showOtpFormWidget(context),
     );
   }
 }

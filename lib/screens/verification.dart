@@ -13,6 +13,7 @@ class Verification extends StatefulWidget {
 }
 
 class _VerificationState extends State<Verification> {
+  final TextEditingController _otpcontroller = TextEditingController();
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,7 @@ class _VerificationState extends State<Verification> {
                   height: 10,
                 ),
                 TextFormField(
+                  controller: _otpcontroller,
                   validator: MultiValidator(
                       [RequiredValidator(errorText: "Required field")]),
                   decoration: InputDecoration(
