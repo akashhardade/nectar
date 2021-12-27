@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:grocery/Screens/introduction/introduction.dart';
+import 'package:grocery/Screens/homescreen/Homepage.dart';
+import 'package:grocery/Screens/loginscreen/googlesignin.dart';
+import 'package:grocery/Screens/loginscreen/login.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Splash extends StatefulWidget {
@@ -18,13 +20,19 @@ class _SplashState extends State<Splash> {
   }
 
   starttimer() async {
-    var duration = Duration(seconds: 2);
+    var duration = Duration(seconds: 1);
     return Timer(duration, route);
   }
 
-  route() {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => Introduction()));
+  route() async {
+    final islogin = await GoogleSignInApi.isSigndIn();
+    if (islogin == true) {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+    } else {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+    }
   }
 
   @override

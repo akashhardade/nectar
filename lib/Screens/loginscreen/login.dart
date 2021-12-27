@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:grocery/Screens/homescreen/Homepage.dart';
+import 'package:grocery/Screens/loginscreen/googlesignin.dart';
 import 'package:grocery/Screens/loginscreen/mobilenologin.dart';
 
 class Login extends StatefulWidget {
@@ -9,7 +12,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -37,7 +40,6 @@ class _LoginState extends State<Login> {
                   TextFormField(
                     decoration: InputDecoration(
                       prefixIcon: Row(
-                        // mainAxisSize: MainAxisSize.min,
                         children: [
                           Image(
                             width: 20,
@@ -74,7 +76,7 @@ class _LoginState extends State<Login> {
                     height: 40,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: signin,
                     child: Container(
                       height: 60,
                       width: double.infinity,
@@ -141,5 +143,16 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  Future signin() async {
+    final user = await GoogleSignInApi.login();
+    if (user == null) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Sign in Failed")));
+    } else {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
+    }
   }
 }

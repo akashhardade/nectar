@@ -10,6 +10,8 @@ class OtpVerify extends StatefulWidget {
 }
 
 class _OtpVerifyState extends State<OtpVerify> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _mobnoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,29 +24,37 @@ class _OtpVerifyState extends State<OtpVerify> {
             },
             icon: Icon(Icons.keyboard_arrow_left, color: Colors.black)),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Text(
-                "Enter your 4 digit code",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Code"),
-              TextFormField(
-                decoration: InputDecoration(
-                  hintText: "- - - -",
+      body: Form(
+        key: _formKey,
+        child: Container(
+          child: Padding(
+            padding:  EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 50,
                 ),
-              ),
-            ],
+                Text(
+                  "Enter your 4 digit code",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text("Code"),
+                TextFormField(
+                  controller: _mobnoController,
+                  validator: (value){
+                    // if(value == null){
+                    // };
+                  },
+                  decoration: InputDecoration(
+                    hintText: "- - - -",
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -52,7 +62,7 @@ class _OtpVerifyState extends State<OtpVerify> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20.0),
             child: TextButton(onPressed: () {}, child: Text("Resend OTP")),
           ),
           FloatingActionButton(

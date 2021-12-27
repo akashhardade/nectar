@@ -15,7 +15,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedindex = 0;
+
   final tabs = <Widget>[Shop(), Explore(), Cart(), Favorite(), Account()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

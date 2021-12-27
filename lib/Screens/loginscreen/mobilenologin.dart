@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:grocery/Screens/loginscreen/otpverify.dart';
 import 'package:grocery/constant/constant.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:flutter_otp/flutter_otp.dart';
 
 class MobileLogin extends StatefulWidget {
   MobileLogin({Key? key}) : super(key: key);
@@ -13,6 +14,8 @@ class MobileLogin extends StatefulWidget {
 }
 
 class _MobileLoginState extends State<MobileLogin> {
+  TextEditingController mobnoController = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,47 +28,49 @@ class _MobileLoginState extends State<MobileLogin> {
             },
             icon: Icon(Icons.keyboard_arrow_left, color: Colors.black)),
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Text(
-                "Enter your mobile number",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text("Mobile Number"),
-              Container(
-                child: InternationalPhoneNumberInput(
-                  maxLength: 10,
-                  hintText: "",
-                  onInputChanged: (PhoneNumber number) {},
-                  onInputValidated: (bool value) {},
-                  selectorConfig: const SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                    setSelectorButtonAsPrefixIcon: true,
-                    leadingPadding: 20,
-                    useEmoji: true,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
-                  selectorTextStyle: TextStyle(color: Colors.black),
-                  formatInput: false,
-                  keyboardType: TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                  inputBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black)),
-                  onSaved: (PhoneNumber number) {},
+      body: Form(
+        key: _formkey,
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 50,
                 ),
-              ),
-            ],
+                Text(
+                  "Enter your mobile number",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text("Mobile Number"),
+                Container(
+                  child: InternationalPhoneNumberInput(
+                    maxLength: 10,
+                    onInputChanged: (PhoneNumber number) {},
+                    // onInputValidated: (bool value) {},
+                    selectorConfig: SelectorConfig(
+                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                      setSelectorButtonAsPrefixIcon: true,
+                      leadingPadding: 20,
+                      useEmoji: true,
+                    ),
+                    ignoreBlank: false,
+                    autoValidateMode: AutovalidateMode.onUserInteraction,
+                    selectorTextStyle: TextStyle(color: Colors.black),
+                    formatInput: false,
+                    keyboardType: TextInputType.numberWithOptions(
+                        signed: true, decimal: true),
+                    inputBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black)),
+                    onSaved: (PhoneNumber number) {},
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -76,8 +81,10 @@ class _MobileLoginState extends State<MobileLogin> {
             size: 30,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => OtpVerify()));
+            if (_formkey.currentState!.validate()) {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => OtpVerify()));
+            }
           }),
     );
   }
