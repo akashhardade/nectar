@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nectar/screens/constants.dart';
+import 'package:nectar/screens/google_signin.dart';
+import 'package:nectar/screens/signIn.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -237,7 +239,10 @@ class _AccountState extends State<Account> {
                         borderRadius: new BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      await GoogleSignInApi.logout();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>SignIn()));
+                    },
                     child: Wrap(
                       children: <Widget>[
                         Row(

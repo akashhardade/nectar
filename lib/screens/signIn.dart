@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nectar/bottombar/bottombar.dart';
+import 'package:nectar/screens/google_signin.dart';
 import 'package:nectar/screens/number.dart';
 
 class SignIn extends StatefulWidget {
@@ -90,7 +92,7 @@ class _SignInState extends State<SignIn> {
             ),
             Container(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: signIn,
                 icon: SvgPicture.asset("assets/images/google.svg"),
                 label: Text(
                   "Continue with Google",
@@ -131,5 +133,16 @@ class _SignInState extends State<SignIn> {
         ),
       ),
     );
+  }
+
+  Future signIn() async {
+    final user = await GoogleSignInApi.login();
+
+    if (user == null) {
+      print("error");
+    } else {
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (_) => BottomBar()));
+    }
   }
 }

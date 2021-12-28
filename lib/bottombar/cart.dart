@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nectar/bottombar/orderAccepted.dart';
 import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
@@ -442,7 +441,7 @@ class _CartState extends State<Cart> {
                                 width: 390,
                                 child: ElevatedButton(
                                   child: Text(
-                                    'Track order',
+                                    'Place order',
                                     style: TextStyle(
                                         fontFamily: 'Gilory-Light',
                                         fontSize: 18),
@@ -463,57 +462,6 @@ class _CartState extends State<Cart> {
                               ),
                             ],
                           ),
-                          // child: ListView(
-                          //   children: [
-                          //     Padding(
-                          //       padding: const EdgeInsets.all(15),
-                          //       child: ListTile(
-                          //           shape: Border(
-                          //               bottom:
-                          //                   BorderSide(color: Colors.black12)),
-                          //           title: Text(
-                          //             "Checkout",
-                          //             style: TextStyle(
-                          //                 fontSize: 22,
-                          //                 fontWeight: FontWeight.bold),
-                          //           ),
-                          //           trailing: IconButton(
-                          //             onPressed: () {},
-                          //             icon: Icon(
-                          //               Icons.clear,
-                          //               size: 25,
-                          //               color: Colors.black,
-                          //             ),
-                          //           )),
-                          //     ),
-                          //     ListTile(
-                          //          shape: Border(
-                          //             bottom:
-                          //                 BorderSide(color: Colors.black12)),
-                          //         title: Row(
-                          //           children: [
-                          //             Text(
-                          //               "Delivery",
-                          //               style: TextStyle(
-                          //                   fontSize: 22,
-                          //                   fontWeight: FontWeight.bold),
-                          //             ),
-                          //             Expanded(child: Container()),
-                          //             Text("select method"),
-                          //           ],
-                          //         ),
-
-                          //         // subtitle:
-                          //         trailing: IconButton(
-                          //           onPressed: () {},
-                          //           icon: Icon(
-                          //             Icons.keyboard_arrow_right,
-                          //             size: 25,
-                          //             color: Colors.black,
-                          //           ),
-                          //         )),
-                          //   ],
-                          // ),
                         ),
                       );
                     },

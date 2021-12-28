@@ -22,6 +22,11 @@ class _NumberState extends State<Number> {
   LoginScreen currentState = LoginScreen.SHOW_MOBILE_ENTER_WIDGET;
   String verificationId = "";
 
+  void signOut() async {
+    await _auth.signOut();
+    
+  }
+
   void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
     try {
       final authCred = await _auth.signInWithCredential(phoneAuthCredential);
@@ -101,7 +106,6 @@ class _NumberState extends State<Number> {
                                 hintText: "Enter Your PhoneNumber"),
                           ),
                         ),
-                       
                       ),
                     ],
                   )),
@@ -123,8 +127,6 @@ class _NumberState extends State<Number> {
                 });
               },
               codeAutoRetrievalTimeout: (verificationId) {});
-
-         
         },
         child: Icon(
           Icons.chevron_right,
@@ -218,7 +220,6 @@ class _NumberState extends State<Number> {
           AuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
               verificationId: verificationId, smsCode: _otpcontroller.text);
           signInWithPhoneAuthCred(phoneAuthCredential);
-        
         },
         child: Icon(
           Icons.chevron_right,

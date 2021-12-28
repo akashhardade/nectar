@@ -170,7 +170,7 @@ class _ShopState extends State<Shop> {
                         height: 10,
                       ),
                       Container(
-                        height: 250,
+                        height: 280,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 3,
@@ -220,7 +220,8 @@ class _ShopState extends State<Shop> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                product[0]["exclusive"][index]["title"],
+                                                product[0]["exclusive"][index]
+                                                    ["title"],
                                                 // " ${Data[index]["id"]}",
                                                 style: TextStyle(
                                                     fontFamily:
@@ -305,7 +306,7 @@ class _ShopState extends State<Shop> {
                         ],
                       ),
                       Container(
-                        height: 250,
+                        height: 280,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 3,
@@ -508,7 +509,7 @@ class _ShopState extends State<Shop> {
                         height: 10,
                       ),
                       Container(
-                        height: 250,
+                        height: 280,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 3,

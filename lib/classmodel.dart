@@ -1,6 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
+
+FirebaseAuth _auth = FirebaseAuth.instance;
+bool isLogged = false;
+void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
+  final authCred = await _auth.signInWithCredential(phoneAuthCredential);
+
+  if (authCred.user != null) {
+    isLogged = true;
+  }
+}
 
 List<Map> data = [
   {
