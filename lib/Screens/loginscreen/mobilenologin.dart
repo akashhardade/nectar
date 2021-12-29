@@ -1,10 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:grocery/Screens/loginscreen/otpverify.dart';
 import 'package:grocery/constant/constant.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:flutter_otp/flutter_otp.dart';
 
 class MobileLogin extends StatefulWidget {
   MobileLogin({Key? key}) : super(key: key);
@@ -14,8 +14,11 @@ class MobileLogin extends StatefulWidget {
 }
 
 class _MobileLoginState extends State<MobileLogin> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController mobnoController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  var mobileno;
+  String verificationId = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +52,7 @@ class _MobileLoginState extends State<MobileLogin> {
                 Text("Mobile Number"),
                 Container(
                   child: InternationalPhoneNumberInput(
+                    textFieldController: mobnoController,
                     maxLength: 10,
                     onInputChanged: (PhoneNumber number) {},
                     // onInputValidated: (bool value) {},
@@ -66,7 +70,11 @@ class _MobileLoginState extends State<MobileLogin> {
                         signed: true, decimal: true),
                     inputBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black)),
-                    onSaved: (PhoneNumber number) {},
+                    onSaved: (PhoneNumber number) {
+                      setState(() {
+                        mobnoController = mobileno;
+                      });
+                    },
                   ),
                 ),
               ],
@@ -80,10 +88,21 @@ class _MobileLoginState extends State<MobileLogin> {
             Icons.keyboard_arrow_right,
             size: 30,
           ),
-          onPressed: () {
+          onPressed: () async {
             if (_formkey.currentState!.validate()) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => OtpVerify()));
+              await _auth.verifyPhoneNumber(
+                  phoneNumber: "+91${mobnoController.text}",
+                  verificationCompleted: (PhoneAuthCredential) async {},
+                  verificationFailed: (PhoneVerificationFailed) {},
+                  codeSent: (verificationId, resendingToken) async {
+                    setState(() {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (_) =>
+                              OtpVerify(verificationId: verificationId)));
+                      this.verificationId = verificationId;
+                    });
+                  },
+                  codeAutoRetrievalTimeout: (verificationId) async {});
             }
           }),
     );

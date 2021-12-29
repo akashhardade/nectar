@@ -4,10 +4,8 @@ import 'package:grocery/Screens/loginscreen/login.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Account extends StatefulWidget {
-  // final GoogleSignInAccount user;
   Account({
     Key? key,
-    // required this.user
   }) : super(key: key);
 
   @override
@@ -17,7 +15,6 @@ class Account extends StatefulWidget {
 class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -30,13 +27,13 @@ class _AccountState extends State<Account> {
                     SizedBox(
                       width: 20,
                     ),
-                    // CircleAvatar(
-                    //   radius: 32,
-                    //   child: Image(
-                    //     image: NetworkImage(user.photoUrl!),
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    // ),
+                    CircleAvatar(
+                      radius: 32,
+                      child: Image(
+                        image: AssetImage("assets/images/profileimg.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     SizedBox(
                       width: 20,
                     ),
@@ -46,14 +43,15 @@ class _AccountState extends State<Account> {
                       children: [
                         Row(
                           children: [
-                            // Text(
-                            //   widget.user!.displayName!,
-                            //   style: TextStyle(
-                            //       fontFamily: 'Gilroy-ExtraBold',
-                            //       fontSize: 22,
-                            //       fontWeight: FontWeight.w600,
-                            //       color: Colors.black),
-                            // ),
+                            Text(
+                              "",
+                              // widget.user!.displayName!,
+                              style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
                             SizedBox(
                               width: 8,
                             ),
