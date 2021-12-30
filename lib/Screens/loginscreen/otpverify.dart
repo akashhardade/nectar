@@ -1,15 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/Screens/loginscreen/emaillogin.dart';
+import 'package:grocery/Screens/homescreen/Homepage.dart';
 import 'package:grocery/constant/constant.dart';
 
 class OtpVerify extends StatefulWidget {
-  OtpVerify({Key? key}) : super(key: key);
+  final String verificationId;
+  OtpVerify({Key? key, required this.verificationId}) : super(key: key);
 
   @override
   _OtpVerifyState createState() => _OtpVerifyState();
 }
 
 class _OtpVerifyState extends State<OtpVerify> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
+    try {
+      final authCred = await _auth.signInWithCredential(phoneAuthCredential);
+     
+
+      if (authCred.user != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Some Error Occured. Try Again Later')));
+    }
+  }
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController _mobnoController = TextEditingController();
   @override
@@ -28,7 +48,7 @@ class _OtpVerifyState extends State<OtpVerify> {
         key: _formKey,
         child: Container(
           child: Padding(
-            padding:  EdgeInsets.only(left: 20, right: 20),
+            padding: EdgeInsets.only(left: 20, right: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -44,10 +64,10 @@ class _OtpVerifyState extends State<OtpVerify> {
                 ),
                 Text("Code"),
                 TextFormField(
+                  keyboardType: TextInputType.number,
                   controller: _mobnoController,
-                  validator: (value){
-                    // if(value == null){
-                    // };
+                  validator: (value) {
+                   
                   },
                   decoration: InputDecoration(
                     hintText: "- - - -",
@@ -72,8 +92,11 @@ class _OtpVerifyState extends State<OtpVerify> {
                 size: 30,
               ),
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => EmailLogin()));
+                AuthCredential phoneAuthCredential =
+                    PhoneAuthProvider.credential(
+                        verificationId: widget.verificationId,
+                        smsCode: _mobnoController.text);
+                signInWithPhoneAuthCred(phoneAuthCredential);
               }),
         ],
       ),
