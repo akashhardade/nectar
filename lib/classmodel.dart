@@ -90,6 +90,7 @@ List<Map> categorylist = [
         "image": "assets/images/banana.png",
         "price": "4.99",
         "description": " 7pcs ,Price",
+        "favourite": false,
       },
       {
         "id": 2,
@@ -97,6 +98,7 @@ List<Map> categorylist = [
         "image": "assets/images/apple.png",
         "price": "4.99",
         "description": "1 Kg ,Price",
+        "favourite": false,
       },
       {
         "id": 3,
@@ -104,6 +106,7 @@ List<Map> categorylist = [
         "image": "assets/images/stawberry.jpg",
         "price": "5.99",
         "description": "12 pcs ,Price",
+        "favourite": false,
       },
       {
         "id": 4,
@@ -111,6 +114,7 @@ List<Map> categorylist = [
         "image": "assets/images/capsicum.png",
         "price": "8.56",
         "description": "6 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 5,
@@ -118,6 +122,7 @@ List<Map> categorylist = [
         "image": "assets/images/ginger.png",
         "price": "9.99",
         "description": "8 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 6,
@@ -125,6 +130,7 @@ List<Map> categorylist = [
         "image": "assets/images/cucumber.png",
         "price": "4.99",
         "description": "3 pcs,Price",
+        "favourite": false,
       },
     ],
   },
@@ -138,6 +144,7 @@ List<Map> categorylist = [
         "image": "assets/images/sundayoil.jpeg",
         "price": "8.56",
         "description": "1L,Price",
+        "favourite": false,
       },
       {
         "id": 8,
@@ -145,6 +152,7 @@ List<Map> categorylist = [
         "image": "assets/images/fortune.jpeg",
         "price": "9.99",
         "description": "2L pcs,Price",
+        "favourite": false,
       },
       {
         "id": 9,
@@ -152,6 +160,7 @@ List<Map> categorylist = [
         "image": "assets/images/amul.jpeg",
         "price": "4.99",
         "description": "500ml ,Price",
+        "favourite": false,
       },
     ]
   },
@@ -165,6 +174,7 @@ List<Map> categorylist = [
         "image": "assets/images/beef.png",
         "price": "4.56",
         "description": "6 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 11,
@@ -172,6 +182,7 @@ List<Map> categorylist = [
         "image": "assets/images/chicken.png",
         "price": "9.99",
         "description": "8 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 12,
@@ -179,6 +190,7 @@ List<Map> categorylist = [
         "image": "assets/images/fish.png",
         "price": "4.99",
         "description": "3 pcs,Price",
+        "favourite": false,
       },
     ]
   },
@@ -192,6 +204,7 @@ List<Map> categorylist = [
         "image": "assets/images/cupcake.jpg",
         "price": "8.56",
         "description": "6 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 14,
@@ -199,6 +212,7 @@ List<Map> categorylist = [
         "image": "assets/images/laddo.jpg",
         "price": "4.99",
         "description": "8 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 15,
@@ -206,6 +220,7 @@ List<Map> categorylist = [
         "image": "assets/images/brownies.jpg",
         "price": "4.99",
         "description": "3 pcs,Price",
+        "favourite": false,
       },
     ]
   },
@@ -219,6 +234,7 @@ List<Map> categorylist = [
         "image": "assets/images/eggred.png",
         "price": "4.56",
         "description": "6 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 17,
@@ -226,6 +242,7 @@ List<Map> categorylist = [
         "image": "assets/images/eggw.png",
         "price": "9.99",
         "description": "8 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 18,
@@ -233,6 +250,7 @@ List<Map> categorylist = [
         "image": "assets/images/eggpasta.png",
         "price": "4.99",
         "description": " 30 gms,Price",
+        "favourite": false,
       },
       {
         "id": 19,
@@ -240,6 +258,7 @@ List<Map> categorylist = [
         "image": "assets/images/eggred.png",
         "price": "4.56",
         "description": "6 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 20,
@@ -247,6 +266,7 @@ List<Map> categorylist = [
         "image": "assets/images/eggw.png",
         "price": "9.99",
         "description": "8 pcs,Price",
+        "favourite": false,
       },
       {
         "id": 21,
@@ -254,6 +274,7 @@ List<Map> categorylist = [
         "image": "assets/images/eggpasta.png",
         "price": "4.99",
         "description": " 30 gms,Price",
+        "favourite": false,
       },
     ]
   },
@@ -267,6 +288,7 @@ List<Map> categorylist = [
         "image": "assets/images/coke.png",
         "price": "1.99",
         "description": "355ml,Price",
+        "favourite": false,
       },
       {
         "id": 23,
@@ -274,6 +296,7 @@ List<Map> categorylist = [
         "image": "assets/images/sprite.png",
         "price": "1.50",
         "description": "325ml,Price",
+        "favourite": false,
       },
       {
         "id": 24,
@@ -281,6 +304,7 @@ List<Map> categorylist = [
         "image": "assets/images/applej.png",
         "price": "15.99",
         "description": "2L,Price",
+        "favourite": false,
       },
       {
         "id": 25,
@@ -288,6 +312,7 @@ List<Map> categorylist = [
         "image": "assets/images/orangej.png",
         "price": "1.99",
         "description": "355ml,Price",
+        "favourite": false,
       },
       {
         "id": 26,
@@ -295,6 +320,7 @@ List<Map> categorylist = [
         "image": "assets/images/coca.png",
         "price": "4.99",
         "description": "325ml,Price",
+        "favourite": false,
       },
       {
         "id": 27,
@@ -302,44 +328,19 @@ List<Map> categorylist = [
         "image": "assets/images/pepsi.png",
         "price": "4.9",
         "description": "330ml,Price",
+        "favourite": false,
       },
     ]
   }
 ];
 
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({Key? key}) : super(key: key);
+List<Map> cartList = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: ElevatedButton(
-        child: const Text('showModalBottomSheet'),
-        onPressed: () {
-          showModalBottomSheet<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return Container(
-                height: 200,
-                color: Colors.amber,
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      const Text('Modal BottomSheet'),
-                      ElevatedButton(
-                        child: const Text('Close BottomSheet'),
-                        onPressed: () => Navigator.pop(context),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
-}
+List<Map> uniqueCartList = [];
+
+// var seen = Set<Map>();
+
+// List<Map> uniqueCartList =
+//     cartList.where((product) => seen.add(product)).toList();
+//List abc = uniqueCartList.toSet().toList();
+List<Map> favouriteList = [];

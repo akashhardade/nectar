@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:nectar/bottombar/orderAccepted.dart';
 import 'package:nectar/screens/constants.dart';
 
 import '../classmodel.dart';
@@ -29,10 +28,9 @@ class _FavouriteState extends State<Favourite> {
         elevation: 1.0,
       ),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: favouriteList.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            // height: 100,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               border: Border(
@@ -46,7 +44,7 @@ class _FavouriteState extends State<Favourite> {
                   child: Image(
                     height: 80,
                     width: 80,
-                    image: AssetImage(categorylist[index]["image"]),
+                    image: AssetImage(favouriteList[index]["image"]),
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -65,8 +63,7 @@ class _FavouriteState extends State<Favourite> {
                           Padding(
                             padding: const EdgeInsets.only(top: 25),
                             child: Text(
-                              categorylist[index]["subcategory"][index]
-                                  ["title"],
+                              favouriteList[index]["title"],
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             ),
@@ -74,16 +71,14 @@ class _FavouriteState extends State<Favourite> {
                           SizedBox(
                             height: 10,
                           ),
-                          Text(categorylist[index]["subcategory"][index]
-                              ["description"]),
+                          Text(favouriteList[index]["description"]),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Text(
-                              "\$ ${categorylist[index]["subcategory"][index]["price"]}",
+                          Text("\$ ${favouriteList[index]["price"]}",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 17)),
                           IconButton(
@@ -111,84 +106,18 @@ class _FavouriteState extends State<Favourite> {
               width: MediaQuery.of(context).size.width * 0.90,
               child: ElevatedButton(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: 60,
-                    ),
                     Text(
                       'Add all to Cart',
                       style:
                           TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
                     ),
-                    Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xFF489E67),
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text("\$ 9.99"),
-                        ))
+                   
                   ],
                 ),
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image(
-                                    image:
-                                        AssetImage("assets/images/fail.png")),
-                                SizedBox(
-                                  height: 40,
-                                ),
-                                Text("Oops! Order Failed",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20)),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  "Something went terribly Wrong",
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                SizedBox(
-                                  height: 50,
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                    child: Text(
-                                      'Please Try Again',
-                                      style: TextStyle(
-                                          fontFamily: 'Gilory-Light',
-                                          fontSize: 18),
-                                    ),
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      primary: kPrimaryColor,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text("Back to Home",
-                                        style: TextStyle(color: Colors.black))),
-                              ],
-                            ),
-                          ));
+                
                 },
                 style: ElevatedButton.styleFrom(
                   shape: new RoundedRectangleBorder(

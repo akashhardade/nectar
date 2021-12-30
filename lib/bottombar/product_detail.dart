@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Detail extends StatefulWidget {
   final Map product;
@@ -12,6 +14,7 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   int _itemCount = 0;
+  bool isSaved = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +29,7 @@ class _DetailState extends State<Detail> {
                     color: Color(0xffF2F3F2),
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20))
-                        ),
+                        bottomRight: Radius.circular(20))),
                 height: 300,
                 width: double.infinity,
               ),
@@ -74,10 +76,37 @@ class _DetailState extends State<Detail> {
                             fontWeight: FontWeight.bold,
                             fontFamily: "Gilroy-ExtraBold"),
                       ),
-                      Icon(
-                        Icons.favorite_border_outlined,
-                        size: 30,
-                      )
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            Map items = widget.product;
+                            if (widget.product["favourite"] == true) {
+                              widget.product["favourite"] = true;
+                              favouriteList.remove(items);
+                            } else {
+                              widget.product["favourite"] = false;
+                              favouriteList.add(items);
+                            }
+                            setState(() {
+                              widget.product["favourite"] =
+                                  !widget.product["favourite"];
+                            });
+
+                            // isSaved = !isSaved;
+                            print(favouriteList);
+                          });
+                        },
+                        icon: widget.product["favourite"] == false
+                            ? Icon(
+                                Icons.favorite_outline,
+                                size: 30,
+                              )
+                            : Icon(
+                                Icons.favorite,
+                                color: kPrimaryColor,
+                                size: 30,
+                              ),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -264,7 +293,20 @@ class _DetailState extends State<Detail> {
                         style:
                             TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        Map temp = widget.product;
+                          var seen = Set<Map>();
+                        setState(() {
+                          cartList.add(temp);
+                        
+
+                           uniqueCartList = cartList
+                              .where((product) => seen.add(product))
+                              .toList();
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Added to cart")));
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(20),

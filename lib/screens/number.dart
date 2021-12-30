@@ -24,7 +24,6 @@ class _NumberState extends State<Number> {
 
   void signOut() async {
     await _auth.signOut();
-    
   }
 
   void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
@@ -193,6 +192,7 @@ class _NumberState extends State<Number> {
                   height: 10,
                 ),
                 TextFormField(
+                  keyboardType: TextInputType.number,
                   controller: _otpcontroller,
                   validator: MultiValidator(
                       [RequiredValidator(errorText: "Required field")]),

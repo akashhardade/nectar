@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nectar/bottombar/orderAccepted.dart';
 import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
@@ -11,7 +12,14 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  bool checkInternet = false;
   int itemcount = 0;
+  //List<Map> abc = [];
+  // var total = cartList.;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,128 +36,156 @@ class _CartState extends State<Cart> {
         backgroundColor: Colors.white,
         elevation: 0.8,
       ),
-      body: ListView.builder(
-        itemCount: 3,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 160,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(
-                      color: Colors.grey.withOpacity(0.5), width: 0.5)),
-            ),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Image(
-                    height: 120,
-                    width: 120,
-                    image: AssetImage(categorylist[index]["image"]),
-                    fit: BoxFit.contain,
+      body: cartList.length == 0
+          ? Center(
+              child: Container(
+                child: Text(
+                  "Cart is empty",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            )
+          : ListView.builder(
+              itemCount: uniqueCartList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 160,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Colors.grey.withOpacity(0.5), width: 0.5)),
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Container(
-                  width: 250,
-                  color: Colors.white,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25),
-                            child: Text(
-                              categorylist[index]["subcategory"][index]
-                                  ["title"],
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(categorylist[index]["subcategory"][index]
-                              ["description"]),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(color: Colors.black38)),
-                                child: IconButton(
-                                  icon: Icon(Icons.remove,
-                                      color: itemcount >= 1
-                                          ? kPrimaryColor
-                                          : Colors.grey),
-                                  onPressed: () => {
-                                    if (itemcount >= 1)
-                                      {setState(() => itemcount--)}
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text(
-                                  itemcount.toString(),
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                    border: Border.all(color: Colors.black38)),
-                                child: IconButton(
-                                    icon: Icon(Icons.add, color: kPrimaryColor),
-                                    onPressed: () =>
-                                        setState(() => itemcount++)),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                        padding: const EdgeInsets.all(10),
+                        child: Image(
+                          height: 120,
+                          width: 120,
+                          image: AssetImage(
+                            uniqueCartList[index]["image"],
+                          ),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        width: 250,
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                                onPressed: () {}, icon: Icon(Icons.clear)),
-                            SizedBox(
-                              height: 30,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 25),
+                                  child: Text(
+                                    uniqueCartList[index]["title"],
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(uniqueCartList[index]["description"]),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          border: Border.all(
+                                              color: Colors.black38)),
+                                      child: IconButton(
+                                        icon: Icon(Icons.remove,
+                                            color: itemcount >= 1
+                                                ? kPrimaryColor
+                                                : Colors.grey),
+                                        onPressed: () => {
+                                          if (itemcount >= 1)
+                                            {setState(() => itemcount--)}
+                                        },
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        itemcount.toString(),
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          border: Border.all(
+                                              color: Colors.black38)),
+                                      child: IconButton(
+                                          icon: Icon(Icons.add,
+                                              color: kPrimaryColor),
+                                          onPressed: () =>
+                                              setState(() => itemcount++)),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
-                            Text(
-                                "\$ ${categorylist[index]["subcategory"][index]["price"]}",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20)),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          cartList.removeAt(index);
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content:
+                                                    Text("Removed from cart")));
+                                      },
+                                      icon: Icon(Icons.clear)),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  Text("\$ ${uniqueCartList[index]["price"]}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20)),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       )
                     ],
                   ),
-                )
-              ],
+                );
+              },
             ),
-          );
-        },
-      ),
       persistentFooterButtons: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -178,7 +214,7 @@ class _CartState extends State<Cart> {
                             borderRadius: BorderRadius.circular(5)),
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text("\$ 9.99"),
+                          child: Text("\$ 9"),
                         ))
                   ],
                 ),
@@ -446,10 +482,87 @@ class _CartState extends State<Cart> {
                                         fontFamily: 'Gilory-Light',
                                         fontSize: 18),
                                   ),
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) => OrderAccepted()));
+                                  onPressed: () async {
+                                    checkInternet =
+                                        await InternetConnectionChecker()
+                                            .hasConnection;
+                                    if (checkInternet == true) {
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (_) => OrderAccepted()));
+                                    } else {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => AlertDialog(
+                                                content: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Image(
+                                                        image: AssetImage(
+                                                            "assets/images/fail.png")),
+                                                    SizedBox(
+                                                      height: 40,
+                                                    ),
+                                                    Text("Oops! Order Failed",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 20)),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      "Something went terribly Wrong",
+                                                      style: TextStyle(
+                                                          fontSize: 12),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 30,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 50,
+                                                      width: double.infinity,
+                                                      child: ElevatedButton(
+                                                        child: Text(
+                                                          'Please Try Again',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilory-Light',
+                                                              fontSize: 18),
+                                                        ),
+                                                        onPressed: () {},
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                          ),
+                                                          primary:
+                                                              kPrimaryColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text(
+                                                            "Back to Home",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black))),
+                                                  ],
+                                                ),
+                                              ));
+                                    }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: new RoundedRectangleBorder(

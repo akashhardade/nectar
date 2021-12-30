@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nectar/bottombar/product_detail.dart';
+import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
 
 class ProductList extends StatefulWidget {
@@ -11,6 +13,7 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
+  var currentindex;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +54,15 @@ class _ProductListState extends State<ProductList> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      currentindex = index;
+                    });
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => Detail(
+                            product: widget.product["subcategory"]
+                                [currentindex])));
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
@@ -109,6 +120,17 @@ class _ProductListState extends State<ProductList> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     InkWell(
+                                      onTap: () {
+                                        Map temp = widget.product["subcategory"]
+                                            [index];
+                                        setState(() {
+                                          cartList.add(temp);
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content:
+                                                    Text("Added to cart")));
+                                      },
                                       child: Container(
                                         height: 40,
                                         width: 40,

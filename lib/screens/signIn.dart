@@ -113,7 +113,10 @@ class _SignInState extends State<SignIn> {
             ),
             Container(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => BottomBar()));
+                },
                 icon: SvgPicture.asset("assets/images/facebook.svg"),
                 label: Text(
                   "Continue with Facebook",

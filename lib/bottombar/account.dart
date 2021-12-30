@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
 import 'package:nectar/screens/google_signin.dart';
 import 'package:nectar/screens/signIn.dart';
@@ -78,6 +79,9 @@ class _AccountState extends State<Account> {
                   shrinkWrap: true,
                   children: [
                     ListTile(
+                        onTap: () {
+                         // print(abc);
+                        },
                         shape: Border(
                             top: BorderSide(color: Colors.black26),
                             bottom: BorderSide(color: Colors.black26)),
@@ -98,6 +102,9 @@ class _AccountState extends State<Account> {
                           color: Colors.black87,
                         )),
                     ListTile(
+                        onTap: () {
+                          print(cartList);
+                        },
                         shape:
                             Border(bottom: BorderSide(color: Colors.black26)),
                         leading: SvgPicture.asset("assets/images/Details.svg"),
@@ -241,7 +248,8 @@ class _AccountState extends State<Account> {
                     ),
                     onPressed: () async {
                       await GoogleSignInApi.logout();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>SignIn()));
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => SignIn()));
                     },
                     child: Wrap(
                       children: <Widget>[
