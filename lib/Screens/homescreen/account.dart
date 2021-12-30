@@ -1,13 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/Screens/loginscreen/googlesignin.dart';
 import 'package:grocery/Screens/loginscreen/login.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Account extends StatefulWidget {
-  // final GoogleSignInAccount user;
   Account({
     Key? key,
-    // required this.user
   }) : super(key: key);
 
   @override
@@ -15,9 +14,9 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -30,13 +29,13 @@ class _AccountState extends State<Account> {
                     SizedBox(
                       width: 20,
                     ),
-                    // CircleAvatar(
-                    //   radius: 32,
-                    //   child: Image(
-                    //     image: NetworkImage(user.photoUrl!),
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    // ),
+                    CircleAvatar(
+                      radius: 32,
+                      child: Image(
+                        image: AssetImage("assets/images/profileimg.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     SizedBox(
                       width: 20,
                     ),
@@ -46,14 +45,15 @@ class _AccountState extends State<Account> {
                       children: [
                         Row(
                           children: [
-                            // Text(
-                            //   widget.user!.displayName!,
-                            //   style: TextStyle(
-                            //       fontFamily: 'Gilroy-ExtraBold',
-                            //       fontSize: 22,
-                            //       fontWeight: FontWeight.w600,
-                            //       color: Colors.black),
-                            // ),
+                            Text(
+                              "richie rich",
+                              // widget.user!.displayName!,
+                              style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
                             SizedBox(
                               width: 8,
                             ),
@@ -66,10 +66,11 @@ class _AccountState extends State<Account> {
                         SizedBox(
                           height: 5,
                         ),
-                        // Text(
-                        //   widget.user!.email,
-                        //   style: TextStyle(fontSize: 15, color: Colors.black54),
-                        // ),
+                        Text(
+                          "richierich@gmail.com",
+                          // widget.user!.email,
+                          style: TextStyle(fontSize: 15, color: Colors.black54),
+                        ),
                       ],
                     ),
                   ],
@@ -243,8 +244,9 @@ class _AccountState extends State<Account> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () async {
-                      await GoogleSignInApi.logout();
+                    onPressed: () {
+                      _auth.signOut();
+                      GoogleSignInApi.logout();
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (_) => Login()));
                     },

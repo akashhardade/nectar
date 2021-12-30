@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1089691798372",
+    "project_id": "nectar-faeef",
+    "storage_bucket": "nectar-faeef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089691798372:android:b20d4419311c7861f48871",
+        "android_client_info": {
+          "package_name": "com.example.grocery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089691798372-0pednu0nd7s2vrluhc1c4ki8kvbholmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.grocery",
+            "certificate_hash": "db1f4f3f721d997d52de99ef0660d8b42100b906"
+          }
+        },
+        {
+          "client_id": "1089691798372-uv9bpba32k2ptho4ho885gdjnajdl84n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW51n5xcyhnkPUzUnf7DR5A-khAJhifvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1089691798372-uv9bpba32k2ptho4ho885gdjnajdl84n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

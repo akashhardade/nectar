@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/Screens/homescreen/Homepage.dart';
 import 'package:grocery/Screens/homescreen/orderaccepted.dart';
+import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class Cart extends StatefulWidget {
   Cart({Key? key}) : super(key: key);
@@ -11,6 +14,18 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   int _itemCount = 0;
+  bool hasinternet = false;
+
+  checkinternet() async {
+    hasinternet = await InternetConnectionChecker().hasConnection ;
+    if (hasinternet == true) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => OrderAccepted()));
+    } else {
+      internetissue(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +107,9 @@ class _CartState extends State<Cart> {
                                         ),
                                       ),
                                       IconButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
                                           icon: Icon(
                                             Icons.clear,
                                             size: 30,
@@ -322,14 +339,11 @@ class _CartState extends State<Cart> {
                                         fontSize: 18),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (_) => OrderAccepted()));
+                                    checkinternet();
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                     primary: kgreen,
                                   ),
@@ -341,65 +355,6 @@ class _CartState extends State<Cart> {
                       );
                     },
                   );
-
-                  //internet loss page
-
-                  // showDialog(
-                  //     context: context,
-                  //     builder: (context) => AlertDialog(
-                  //           content: Column(
-                  //             mainAxisSize: MainAxisSize.min,
-                  //             children: [
-                  //               Image(
-                  //                   image: AssetImage(
-                  //                       "assets/images/orderfailimg.png")),
-                  //               SizedBox(
-                  //                 height: 40,
-                  //               ),
-                  //               Text("Oops! Order Failed",
-                  //                   style: TextStyle(
-                  //                       fontWeight: FontWeight.bold,
-                  //                       fontSize: 20)),
-                  //               SizedBox(
-                  //                 height: 10,
-                  //               ),
-                  //               Text(
-                  //                 "Something went trubly Wrong",
-                  //                 style: TextStyle(fontSize: 12),
-                  //               ),
-                  //               SizedBox(
-                  //                 height: 30,
-                  //               ),
-                  //               SizedBox(
-                  //                 height: 50,
-                  //                 width: double.infinity,
-                  //                 child: ElevatedButton(
-                  //                   child: Text(
-                  //                     'Please Try Again',
-                  //                     style: TextStyle(
-                  //                         fontFamily: 'Gilory-Light',
-                  //                         fontSize: 18),
-                  //                   ),
-                  //                   onPressed: () {},
-                  //                   style: ElevatedButton.styleFrom(
-                  //                     shape: RoundedRectangleBorder(
-                  //                       borderRadius: BorderRadius.circular(20),
-                  //                     ),
-                  //                     primary: kgreen,
-                  //                   ),
-                  //                 ),
-                  //               ),
-                  //               SizedBox(
-                  //                 height: 20,
-                  //               ),
-                  //               TextButton(
-                  //                   onPressed: () {},
-                  //                   child: Text("Back to Home",
-                  //                       style: TextStyle(color: Colors.black))),
-                  //             ],
-                  //           ),
-                  //         )
-                  //         );
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -417,7 +372,7 @@ class _CartState extends State<Cart> {
         child: ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            itemCount: sortcartlist.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding:
@@ -435,7 +390,7 @@ class _CartState extends State<Cart> {
                       Image(
                         height: 100,
                         width: 100,
-                        image: AssetImage("assets/images/bellpaper.png"),
+                        image: AssetImage("${sortcartlist[index]["image"]}"),
                       ),
                       SizedBox(
                         width: 20,
@@ -447,24 +402,18 @@ class _CartState extends State<Cart> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Red bellpaper",
+                                "${sortcartlist[index]["title"]}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
-                              SizedBox(
-                                width: 90,
-                              ),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.clear,
-                                    size: 20,
-                                  ))
                             ],
                           ),
-                          Text("1 KG price"),
                           SizedBox(
-                            height: 20,
+                            height: 10,
+                          ),
+                          Text("${sortcartlist[index]["description"]}"),
+                          SizedBox(
+                            height: 30,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -500,12 +449,36 @@ class _CartState extends State<Cart> {
                               SizedBox(
                                 width: 52,
                               ),
-                              Text("\$ 4.99",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
                             ],
                           )
                         ],
+                      ),
+                      Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(),
+                              child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      sortcartlist.removeAt(index);
+                                      cartitems.clear();
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.clear,
+                                    size: 20,
+                                  )),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Text("\$ 4.99",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -514,5 +487,64 @@ class _CartState extends State<Cart> {
             }),
       ),
     );
+  }
+
+  Future<dynamic> internetissue(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image(image: AssetImage("assets/images/orderfailimg.png")),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Text("Oops! Order Failed",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Something went trubly Wrong",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      child: Text(
+                        'Please Try Again',
+                        style:
+                            TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        primary: kgreen,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => HomePage()));
+                      },
+                      child: Text("Back to Home",
+                          style: TextStyle(color: Colors.black))),
+                ],
+              ),
+            ));
   }
 }
