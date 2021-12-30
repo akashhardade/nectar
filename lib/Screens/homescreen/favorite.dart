@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Favorite extends StatefulWidget {
@@ -35,10 +36,19 @@ class _FavoriteState extends State<Favorite> {
                   'Add All To Cart',
                   style: TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    sortcartlist.addAll(favouriteitems);
+                    favouriteitems.clear();
+
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: Text("Added all products to cart")));
+                  });
+                },
                 style: ElevatedButton.styleFrom(
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(20),
+                  shape:  RoundedRectangleBorder(
+                    borderRadius:  BorderRadius.circular(20),
                   ),
                   primary: kgreen,
                 ),
@@ -49,7 +59,7 @@ class _FavoriteState extends State<Favorite> {
       ],
       body: ListView.builder(
           shrinkWrap: true,
-          itemCount: 2,
+          itemCount: favouriteitems.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -67,7 +77,7 @@ class _FavoriteState extends State<Favorite> {
                     Image(
                       height: 100,
                       width: 100,
-                      image: AssetImage("assets/images/b4.png"),
+                      image: AssetImage(favouriteitems[index]["image"]),
                     ),
                     SizedBox(
                       width: 20,
@@ -77,14 +87,14 @@ class _FavoriteState extends State<Favorite> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "pepsi",
+                          "${favouriteitems[index]["title"]}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         SizedBox(
                           height: 15,
                         ),
-                        Text("1 pcs price"),
+                        Text("${favouriteitems[index]["description"]}"),
                       ],
                     ),
                     SizedBox(
@@ -93,7 +103,7 @@ class _FavoriteState extends State<Favorite> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("\$ 2.50",
+                        Text("\$ ${favouriteitems[index]["price"]}",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                         IconButton(
                             onPressed: () {},

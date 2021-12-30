@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -65,7 +66,34 @@ class _ProductDetailsState extends State<ProductDetails> {
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold)),
                     IconButton(
-                        onPressed: () {}, icon: Icon(Icons.favorite_border)),
+                      onPressed: () {
+                        setState(() {
+                          Map items = widget.product;
+                          if (widget.product["favourite"] == true) {
+                            widget.product["favourite"] = true;
+                            favouriteitems.remove(items);
+                          } else {
+                            widget.product["favourite"] = false;
+                            favouriteitems.add(items);
+                          }
+                          setState(() {
+                            widget.product["favourite"] =
+                                !widget.product["favourite"];
+                          });
+                          print(favouriteitems);
+                        });
+                      },
+                      icon: widget.product["favourite"] == false
+                          ? Icon(
+                              Icons.favorite_outline,
+                              size: 30,
+                            )
+                          : Icon(
+                              Icons.favorite,
+                              color: kgreen,
+                              size: 30,
+                            ),
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -83,8 +111,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Row(
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.remove,color: _itemCount >=1 ? kgreen : Colors.grey),
-                          onPressed: () => { 
+                          icon: Icon(Icons.remove,
+                              color: _itemCount >= 1 ? kgreen : Colors.grey),
+                          onPressed: () => {
                             if (_itemCount >= 1) {setState(() => _itemCount--)}
                           },
                         ),
@@ -97,7 +126,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 border: Border.all(color: Colors.black38)),
                             child: Text(_itemCount.toString())),
                         IconButton(
-                            icon: Icon(Icons.add,color:kgreen),
+                            icon: Icon(Icons.add, color: kgreen),
                             onPressed: () => setState(() => _itemCount++))
                       ],
                     ),
@@ -250,10 +279,22 @@ class _ProductDetailsState extends State<ProductDetails> {
                       style:
                           TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Map temp = widget.product;
+                      var seen = Set<Map>();
+                      setState(() {
+                        cartitems.add(temp);
+                        
+                        sortcartlist = cartitems
+                            .where((product) => seen.add(product))
+                            .toList();
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Added to cart")));
+                    },
                     style: ElevatedButton.styleFrom(
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(20),
+                      shape:  RoundedRectangleBorder(
+                        borderRadius:  BorderRadius.circular(20),
                       ),
                       primary: kgreen,
                     ),
