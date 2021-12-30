@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/Screens/homescreen/Homepage.dart';
+import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
 import 'dart:ui';
 
@@ -10,6 +12,12 @@ class OrderAccepted extends StatefulWidget {
 }
 
 class _OrderAcceptedState extends State<OrderAccepted> {
+  @override
+  void initState() {
+    super.initState();
+    sortcartlist.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +82,8 @@ class _OrderAcceptedState extends State<OrderAccepted> {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => HomePage()));
               },
               child: Text(
                 "Back to home",

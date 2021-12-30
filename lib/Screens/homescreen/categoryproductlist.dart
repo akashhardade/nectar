@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/Screens/homescreen/productdetails.dart';
+import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
 
 class CategoryProductList extends StatefulWidget {
@@ -10,6 +12,7 @@ class CategoryProductList extends StatefulWidget {
 }
 
 class _CategoryProductListState extends State<CategoryProductList> {
+  var currentindex;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +36,6 @@ class _CategoryProductListState extends State<CategoryProductList> {
           )),
       body: Container(
         child: GridView.builder(
-            //   physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
@@ -46,14 +48,13 @@ class _CategoryProductListState extends State<CategoryProductList> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () {
-                    // setState(() {
-                    //   currentindex = index;
-                    // });
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (_) => Detail(
-                    //           product: product[0]["exclusive"]
-                    //               [currentindex],
-                    //         )));
+                    setState(() {
+                      currentindex = index;
+                    });
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => ProductDetails(
+                            product: widget.products["subcategory"]
+                                [currentindex])));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -80,7 +81,6 @@ class _CategoryProductListState extends State<CategoryProductList> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            // width: MediaQuery.of(context).size.width * 0.99,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -116,6 +116,23 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     InkWell(
+                                      onTap: () {
+                                        Map temp = widget
+                                            .products["subcategory"][index];
+                                        var seen = Set<Map>();
+                                        setState(() {
+                                          cartitems.add(temp);
+                                          sortcartlist = cartitems
+                                              .where((product) =>
+                                                  seen.add(product))
+                                              .toList();
+                                          print(cartitems);
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content:
+                                                    Text("Added to cart")));
+                                      },
                                       child: Container(
                                         height: 40,
                                         width: 40,
