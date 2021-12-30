@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/Screens/homescreen/productdetails.dart';
+import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
 
 class Shop extends StatefulWidget {
@@ -17,22 +18,28 @@ class _ShopState extends State<Shop> {
           "id": 1,
           "title": "banana",
           "image": "assets/images/banana.png",
-          "price": "50",
+          "price": 50,
           "description": "6 pcs",
+          "favourite": false,
+        "quantity": 1,
         },
         {
           "id": 2,
           "title": "apple",
           "image": "assets/images/apple.png",
-          "price": "100",
+          "price": 100,
           "description": "1 kg",
+           "favourite": false,
+        "quantity": 1,
         },
         {
           "id": 3,
           "title": "elichi banana",
           "image": "assets/images/banana.png",
-          "price": "10",
+          "price": 10,
           "description": "6 pcs",
+           "favourite": false,
+        "quantity": 1,
         },
       ],
       "bestselling": [
@@ -40,22 +47,28 @@ class _ShopState extends State<Shop> {
           "id": 4,
           "title": "ginger",
           "image": "assets/images/ginger.png",
-          "price": "45",
+          "price": 45,
           "description": "100 gm",
+           "favourite": false,
+        "quantity": 1,
         },
         {
           "id": 5,
           "title": "red capsicum",
           "image": "assets/images/bellpaper.png",
-          "price": "5",
+          "price": 5,
           "description": "1 kg",
+           "favourite": false,
+        "quantity": 1,
         },
         {
           "id": 6,
           "title": "cucumber",
           "image": "assets/images/banana.png",
-          "price": "30",
+          "price": 30,
           "description": "1 kg",
+           "favourite": false,
+        "quantity": 1,
         },
       ],
       "groceries": [
@@ -63,22 +76,28 @@ class _ShopState extends State<Shop> {
           "id": 7,
           "title": "chicken",
           "image": "assets/images/chicken.png",
-          "price": "45",
+          "price": 45,
           "description": "1 kg",
+           "favourite": false,
+        "quantity": 1,
         },
         {
           "id": 8,
           "title": "beef",
           "image": "assets/images/beef.png",
-          "price": "5",
+          "price":5,
           "description": "1 kg",
+           "favourite": false,
+        "quantity": 1,
         },
         {
           "id": 9,
           "title": "mutton",
           "image": "assets/images/chicken.png",
-          "price": "30",
+          "price": 30,
           "description": "1 kg",
+           "favourite": false,
+        "quantity": 1,
         },
       ],
     },
@@ -228,6 +247,19 @@ class _ShopState extends State<Shop> {
                                               width: 60,
                                             ),
                                             InkWell(
+                                              onTap:(){
+                                                 Map temp = products[0]["exclusive"][index];
+                      var seen = Set<Map>();
+                      setState(() {
+                        cartitems.add(temp);
+                        sortcartlist = cartitems
+                            .where((product) => seen.add(product))
+                            .toList();
+                        print(cartitems);
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Added to cart")));
+                                              },
                                               child: Container(
                                                 height: 40,
                                                 width: 40,
@@ -236,7 +268,7 @@ class _ShopState extends State<Shop> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                child: Icon(Icons.add),
+                                                child: Icon(Icons.add,color:Colors.white),
                                               ),
                                             ),
                                           ],
@@ -349,6 +381,19 @@ class _ShopState extends State<Shop> {
                                               width: 60,
                                             ),
                                             InkWell(
+                                              onTap: (){
+                                                 Map temp = products[0]["bestselling"][index];
+                      var seen = Set<Map>();
+                      setState(() {
+                        cartitems.add(temp);
+                        sortcartlist = cartitems
+                            .where((product) => seen.add(product))
+                            .toList();
+                        print(cartitems);
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Added to cart")));
+                                              },
                                               child: Container(
                                                 height: 40,
                                                 width: 40,
@@ -357,7 +402,7 @@ class _ShopState extends State<Shop> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                child: Icon(Icons.add),
+                                                child: Icon(Icons.add,color:Colors.white),
                                               ),
                                             ),
                                           ],
@@ -539,6 +584,18 @@ class _ShopState extends State<Shop> {
                                               width: 60,
                                             ),
                                             InkWell(
+                                              onTap: (){
+                                                 Map temp = products[0]["groceries"][index];
+                      var seen = Set<Map>();
+                      setState(() {
+                        cartitems.add(temp);
+                        sortcartlist = cartitems
+                            .where((product) => seen.add(product))
+                            .toList();
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Added to cart")));
+                                              },
                                               child: Container(
                                                 height: 40,
                                                 width: 40,
@@ -547,7 +604,7 @@ class _ShopState extends State<Shop> {
                                                   borderRadius:
                                                       BorderRadius.circular(10),
                                                 ),
-                                                child: Icon(Icons.add),
+                                                child: Icon(Icons.add,color:Colors.white),
                                               ),
                                             ),
                                           ],
