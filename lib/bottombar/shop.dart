@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/bottombar/product_detail.dart';
+import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
 
 class Shop extends StatefulWidget {
@@ -222,7 +223,6 @@ class _ShopState extends State<Shop> {
                                               Text(
                                                 product[0]["exclusive"][index]
                                                     ["title"],
-                                                // " ${Data[index]["id"]}",
                                                 style: TextStyle(
                                                     fontFamily:
                                                         "Gilroy-ExtraBold",
@@ -257,6 +257,28 @@ class _ShopState extends State<Shop> {
                                                             FontWeight.bold),
                                                   ),
                                                   InkWell(
+                                                    onTap: () {
+                                                      Map temp = product[0]
+                                                          ["exclusive"][index];
+
+                                                      var seen = Set<Map>();
+                                                      setState(() {
+                                                        cartList.add(temp);
+                                                        uniqueCartList = cartList
+                                                            .where((product) =>
+                                                                seen.add(
+                                                                    product))
+                                                            .toList();
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(SnackBar(
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                              content: Text(
+                                                                  "Added to cart")));
+                                                    },
                                                     child: Container(
                                                       height: 40,
                                                       width: 40,
@@ -393,6 +415,29 @@ class _ShopState extends State<Shop> {
                                                             FontWeight.bold),
                                                   ),
                                                   InkWell(
+                                                    onTap: () {
+                                                      Map temp = product[0]
+                                                              ["bestselling"]
+                                                          [index];
+
+                                                      var seen = Set<Map>();
+                                                      setState(() {
+                                                        cartList.add(temp);
+                                                        uniqueCartList = cartList
+                                                            .where((product) =>
+                                                                seen.add(
+                                                                    product))
+                                                            .toList();
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(SnackBar(
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                              content: Text(
+                                                                  "Added to cart")));
+                                                    },
                                                     child: Container(
                                                       height: 40,
                                                       width: 40,
@@ -595,6 +640,28 @@ class _ShopState extends State<Shop> {
                                                             FontWeight.bold),
                                                   ),
                                                   InkWell(
+                                                    onTap: () {
+                                                      Map temp = product[0]
+                                                          ["groceries"][index];
+
+                                                      var seen = Set<Map>();
+                                                      setState(() {
+                                                        cartList.add(temp);
+                                                        uniqueCartList = cartList
+                                                            .where((product) =>
+                                                                seen.add(
+                                                                    product))
+                                                            .toList();
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(SnackBar(
+                                                              duration: Duration(
+                                                                  milliseconds:
+                                                                      500),
+                                                              content: Text(
+                                                                  "Added to cart")));
+                                                    },
                                                     child: Container(
                                                       height: 40,
                                                       width: 40,

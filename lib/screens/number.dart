@@ -5,6 +5,7 @@ import 'package:nectar/bottombar/bottombar.dart';
 import 'package:nectar/screens/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 enum LoginScreen { SHOW_MOBILE_ENTER_WIDGET, SHOW_OTP_FORM_WIDGET }
 
 class Number extends StatefulWidget {

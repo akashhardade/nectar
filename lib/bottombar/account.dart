@@ -4,6 +4,7 @@ import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
 import 'package:nectar/screens/google_signin.dart';
 import 'package:nectar/screens/signIn.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +82,7 @@ class _AccountState extends State<Account> {
                   children: [
                     ListTile(
                         onTap: () {
-                         // print(abc);
+                          print(uniqueCartList);
                         },
                         shape: Border(
                             top: BorderSide(color: Colors.black26),
@@ -246,8 +248,10 @@ class _AccountState extends State<Account> {
                         borderRadius: new BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () async {
-                      await GoogleSignInApi.logout();
+                    onPressed: () {
+                      GoogleSignInApi.logout();
+                      _auth.signOut();
+
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (_) => SignIn()));
                     },

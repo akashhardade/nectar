@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:nectar/bottombar/orderAccepted.dart';
 import 'package:nectar/classmodel.dart';
@@ -12,14 +13,22 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  gettotalprice(){
+    
+  }
   bool checkInternet = false;
   int itemcount = 0;
-  //List<Map> abc = [];
-  // var total = cartList.;
+
   @override
   void initState() {
     super.initState();
   }
+
+  // getTotalAmount() {
+  //   double totalAmount = 0.0;
+  //   _cartItemList.forEach((e) => totalAmount += e.subTotal);
+  //   return totalAmount;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +45,7 @@ class _CartState extends State<Cart> {
         backgroundColor: Colors.white,
         elevation: 0.8,
       ),
-      body: cartList.length == 0
+      body: uniqueCartList.length == 0
           ? Center(
               child: Container(
                 child: Text(
@@ -115,19 +124,25 @@ class _CartState extends State<Cart> {
                                               color: Colors.black38)),
                                       child: IconButton(
                                         icon: Icon(Icons.remove,
-                                            color: itemcount >= 1
+                                            color: itemcount > 1
                                                 ? kPrimaryColor
                                                 : Colors.grey),
                                         onPressed: () => {
-                                          if (itemcount >= 1)
-                                            {setState(() => itemcount--)}
+                                          if (uniqueCartList[index]
+                                                  ["quantity"] >
+                                              1)
+                                            {
+                                              setState(() =>
+                                                  uniqueCartList[index]
+                                                      ["quantity"]--)
+                                            }
                                         },
                                       ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Text(
-                                        itemcount.toString(),
+                                        "${uniqueCartList[index]["quantity"]} ",
                                         style: TextStyle(fontSize: 15),
                                       ),
                                     ),
@@ -143,8 +158,9 @@ class _CartState extends State<Cart> {
                                       child: IconButton(
                                           icon: Icon(Icons.add,
                                               color: kPrimaryColor),
-                                          onPressed: () =>
-                                              setState(() => itemcount++)),
+                                          onPressed: () => setState(() =>
+                                              uniqueCartList[index]
+                                                  ["quantity"]++)),
                                     ),
                                   ],
                                 )
@@ -160,10 +176,13 @@ class _CartState extends State<Cart> {
                                   IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          cartList.removeAt(index);
+                                          uniqueCartList.removeAt(index);
+                                          cartList.clear();
                                         });
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
+                                                duration:
+                                                    Duration(milliseconds: 500),
                                                 content:
                                                     Text("Removed from cart")));
                                       },
@@ -171,10 +190,18 @@ class _CartState extends State<Cart> {
                                   SizedBox(
                                     height: 30,
                                   ),
-                                  Text("\$ ${uniqueCartList[index]["price"]}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20)),
+                                 
+                                  // Container(
+                                  //   child: uniqueCartList[index]["quantity"] *
+                                  //       uniqueCartList[index]["price"],
+                                  // ),
+                                  // Text(
+                                  //     "\$   ${uniqueCartList[index]["quantity"]}"
+                                  //     uniqueCartList[index]["price"] *
+                                  //         uniqueCartList[index]["price"],
+                                  //     style: TextStyle(
+                                  //         fontWeight: FontWeight.bold,
+                                  //         fontSize: 20)),
                                 ],
                               ),
                             )

@@ -123,11 +123,18 @@ class _ProductListState extends State<ProductList> {
                                       onTap: () {
                                         Map temp = widget.product["subcategory"]
                                             [index];
+                                        var seen = Set<Map>();
                                         setState(() {
                                           cartList.add(temp);
+                                          uniqueCartList = cartList
+                                              .where((product) =>
+                                                  seen.add(product))
+                                              .toList();
                                         });
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
+                                                duration:
+                                                    Duration(milliseconds: 500),
                                                 content:
                                                     Text("Added to cart")));
                                       },

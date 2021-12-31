@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 bool isLogged = false;
@@ -91,6 +91,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": " 7pcs ,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 2,
@@ -99,6 +100,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": "1 Kg ,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 3,
@@ -107,6 +109,7 @@ List<Map> categorylist = [
         "price": "5.99",
         "description": "12 pcs ,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 4,
@@ -115,6 +118,7 @@ List<Map> categorylist = [
         "price": "8.56",
         "description": "6 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 5,
@@ -123,6 +127,7 @@ List<Map> categorylist = [
         "price": "9.99",
         "description": "8 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 6,
@@ -131,6 +136,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": "3 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
     ],
   },
@@ -145,6 +151,7 @@ List<Map> categorylist = [
         "price": "8.56",
         "description": "1L,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 8,
@@ -153,6 +160,7 @@ List<Map> categorylist = [
         "price": "9.99",
         "description": "2L pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 9,
@@ -161,6 +169,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": "500ml ,Price",
         "favourite": false,
+        "quantity": 1,
       },
     ]
   },
@@ -175,6 +184,7 @@ List<Map> categorylist = [
         "price": "4.56",
         "description": "6 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 11,
@@ -183,6 +193,7 @@ List<Map> categorylist = [
         "price": "9.99",
         "description": "8 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 12,
@@ -191,6 +202,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": "3 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
     ]
   },
@@ -205,6 +217,7 @@ List<Map> categorylist = [
         "price": "8.56",
         "description": "6 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 14,
@@ -213,6 +226,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": "8 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 15,
@@ -221,6 +235,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": "3 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
     ]
   },
@@ -235,6 +250,7 @@ List<Map> categorylist = [
         "price": "4.56",
         "description": "6 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 17,
@@ -243,6 +259,7 @@ List<Map> categorylist = [
         "price": "9.99",
         "description": "8 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 18,
@@ -251,6 +268,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": " 30 gms,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 19,
@@ -259,6 +277,7 @@ List<Map> categorylist = [
         "price": "4.56",
         "description": "6 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 20,
@@ -267,6 +286,7 @@ List<Map> categorylist = [
         "price": "9.99",
         "description": "8 pcs,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 21,
@@ -275,6 +295,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": " 30 gms,Price",
         "favourite": false,
+        "quantity": 1,
       },
     ]
   },
@@ -289,6 +310,7 @@ List<Map> categorylist = [
         "price": "1.99",
         "description": "355ml,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 23,
@@ -297,6 +319,7 @@ List<Map> categorylist = [
         "price": "1.50",
         "description": "325ml,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 24,
@@ -305,6 +328,7 @@ List<Map> categorylist = [
         "price": "15.99",
         "description": "2L,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 25,
@@ -313,6 +337,7 @@ List<Map> categorylist = [
         "price": "1.99",
         "description": "355ml,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 26,
@@ -321,6 +346,7 @@ List<Map> categorylist = [
         "price": "4.99",
         "description": "325ml,Price",
         "favourite": false,
+        "quantity": 1,
       },
       {
         "id": 27,
@@ -329,18 +355,15 @@ List<Map> categorylist = [
         "price": "4.9",
         "description": "330ml,Price",
         "favourite": false,
+        "quantity": 1,
       },
     ]
   }
 ];
 
+
 List<Map> cartList = [];
 
 List<Map> uniqueCartList = [];
 
-// var seen = Set<Map>();
-
-// List<Map> uniqueCartList =
-//     cartList.where((product) => seen.add(product)).toList();
-//List abc = uniqueCartList.toSet().toList();
 List<Map> favouriteList = [];

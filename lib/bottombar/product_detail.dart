@@ -295,12 +295,11 @@ class _DetailState extends State<Detail> {
                       ),
                       onPressed: () async {
                         Map temp = widget.product;
-                          var seen = Set<Map>();
+                        var seen = Set<Map>();
                         setState(() {
                           cartList.add(temp);
-                        
 
-                           uniqueCartList = cartList
+                          uniqueCartList = cartList
                               .where((product) => seen.add(product))
                               .toList();
                         });
