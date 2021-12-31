@@ -11,7 +11,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (_) => MobileLogin()));
                     },
                   ),
@@ -141,13 +141,12 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
-    ); 
+    );
   }
 
   Future signin() async {
     final user = await GoogleSignInApi.login();
     if (user == null) {
-     
     } else {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
