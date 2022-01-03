@@ -133,6 +133,9 @@ class _FavouriteState extends State<Favourite> {
                   setState(() {
                     uniqueCartList.addAll(favouriteList);
                     favouriteList.clear();
+                    // num sum = (total.reduce((a, b) => a + b));
+
+                    // print(sum);
 
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(seconds: 1),

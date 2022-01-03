@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/bottombar/bottombar.dart';
+import 'package:nectar/classmodel.dart';
 import 'dart:ui';
 
 import 'package:nectar/screens/constants.dart';
@@ -11,6 +13,16 @@ class OrderAccepted extends StatefulWidget {
 }
 
 class _OrderAcceptedState extends State<OrderAccepted> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      uniqueCartList.clear();
+      print(uniqueCartList);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +96,8 @@ class _OrderAcceptedState extends State<OrderAccepted> {
             ),
             InkWell(
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => BottomBar()));
               },
               child: Text(
                 "Back to home",

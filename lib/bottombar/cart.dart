@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+// import 'package:flutter_cart/flutter_cart.dart';
 import 'package:nectar/bottombar/orderAccepted.dart';
 import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
@@ -13,22 +13,38 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  gettotalprice(){
-    
-  }
+  int currentindex = 0;
+
   bool checkInternet = false;
   int itemcount = 0;
+  var totalprice;
+  double abc = 0;
 
   @override
   void initState() {
     super.initState();
+    returnTotalAmount();
   }
 
-  // getTotalAmount() {
-  //   double totalAmount = 0.0;
-  //   _cartItemList.forEach((e) => totalAmount += e.subTotal);
-  //   return totalAmount;
-  // }
+  List totalAmounts = [];
+  returnTotalAmount() async {
+    // double totalAmount = 0.0;
+
+    for (int i = 0; i < uniqueCartList.length; i++) {
+      var totalAmount = uniqueCartList
+          .map<double>(
+              (e) => uniqueCartList[i]["quantity"] * uniqueCartList[i]["price"])
+          .reduce((value, element) => value);
+      totalAmounts.add(totalAmount);
+      print(totalAmounts);
+    }
+    setState(() {
+      totalprice = totalAmounts.reduce((value, element) => value + element);
+      abc = double.parse((totalprice).toStringAsFixed(2));
+    });
+
+    // print(totalprice) ;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +144,7 @@ class _CartState extends State<Cart> {
                                                 ? kPrimaryColor
                                                 : Colors.grey),
                                         onPressed: () => {
+                                          currentindex = index,
                                           if (uniqueCartList[index]
                                                   ["quantity"] >
                                               1)
@@ -177,6 +194,7 @@ class _CartState extends State<Cart> {
                                       onPressed: () {
                                         setState(() {
                                           uniqueCartList.removeAt(index);
+                                          totalAmounts.removeAt(index);
                                           cartList.clear();
                                         });
                                         ScaffoldMessenger.of(context)
@@ -190,15 +208,13 @@ class _CartState extends State<Cart> {
                                   SizedBox(
                                     height: 30,
                                   ),
-                                 
-                                  // Container(
-                                  //   child: uniqueCartList[index]["quantity"] *
-                                  //       uniqueCartList[index]["price"],
-                                  // ),
-                                  // Text(
-                                  //     "\$   ${uniqueCartList[index]["quantity"]}"
-                                  //     uniqueCartList[index]["price"] *
-                                  //         uniqueCartList[index]["price"],
+                                  Text(
+                                    '\$${uniqueCartList.length > 0 ? uniqueCartList.map<double>((e) => uniqueCartList[index]["quantity"] * uniqueCartList[index]["price"]).reduce((value, element) => value).toStringAsFixed(2) : 0}',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  )
+                                  // Text(uniqueCartList[index]["price"],
                                   //     style: TextStyle(
                                   //         fontWeight: FontWeight.bold,
                                   //         fontSize: 20)),
@@ -240,12 +256,12 @@ class _CartState extends State<Cart> {
                             color: Color(0xFF489E67),
                             borderRadius: BorderRadius.circular(5)),
                         child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text("\$ 9"),
-                        ))
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text('$abc')))
                   ],
                 ),
                 onPressed: () {
+                  print(uniqueCartList);
                   showModalBottomSheet<void>(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -280,7 +296,9 @@ class _CartState extends State<Cart> {
                                         ),
                                       ),
                                       IconButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
                                           icon: Icon(
                                             Icons.clear,
                                             size: 30,
@@ -439,7 +457,7 @@ class _CartState extends State<Cart> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            "\$ 13.97",
+                                            "$totalprice",
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.black,
@@ -558,7 +576,21 @@ class _CartState extends State<Cart> {
                                                                   'Gilory-Light',
                                                               fontSize: 18),
                                                         ),
-                                                        onPressed: () {},
+                                                        onPressed: () async {
+                                                          checkInternet =
+                                                              await InternetConnectionChecker()
+                                                                  .hasConnection;
+                                                          if (checkInternet ==
+                                                              true) {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pushReplacement(
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (_) =>
+                                                                                OrderAccepted()));
+                                                          }
+                                                        },
                                                         style: ElevatedButton
                                                             .styleFrom(
                                                           shape:

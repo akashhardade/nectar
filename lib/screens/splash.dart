@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/bottombar/bottombar.dart';
 import 'package:nectar/screens/constants.dart';
 import 'package:nectar/screens/google_signin.dart';
 import 'package:nectar/screens/signIn.dart';
-import 'package:nectar/screens/welcome.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -14,10 +14,14 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  late FirebaseAuth _auth;
+  late User? _user;
   @override
   void initState() {
     super.initState();
     starttimer();
+    _auth = FirebaseAuth.instance;
+    _user = _auth.currentUser;
   }
 
   starttimer() async {
@@ -27,7 +31,7 @@ class _SplashState extends State<Splash> {
 
   route() async {
     final islogin = await GoogleSignInApi.isSigndIn();
-    if (islogin == true) {
+    if (islogin == true || _user != null) {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => BottomBar()));
     } else {

@@ -21,6 +21,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/banana.png",
           "price": "4.99",
           "description": " 7pcs ,Price",
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 2,
@@ -28,6 +30,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/apple.png",
           "price": "4.99",
           "description": "1 Kg ,Price",
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 3,
@@ -35,6 +39,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/stawberry.jpg",
           "price": "5.99",
           "description": "12 pcs ,Price",
+          "favourite": false,
+          "quantity": 1,
         },
       ],
       "bestselling": [
@@ -44,6 +50,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/capsicum.png",
           "price": "8.56",
           "description": "6 pcs,Price",
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 5,
@@ -51,6 +59,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/ginger.png",
           "price": "9.99",
           "description": "8 pcs,Price",
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 6,
@@ -58,6 +68,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/cucumber.png",
           "price": "4.99",
           "description": "3 pcs,Price",
+          "favourite": false,
+          "quantity": 1,
         },
       ],
       "groceries": [
@@ -67,6 +79,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/beef.png",
           "price": "4.56",
           "description": "6 pcs,Price",
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 8,
@@ -74,6 +88,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/chicken.png",
           "price": "9.99",
           "description": "8 pcs,Price",
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 9,
@@ -81,6 +97,8 @@ class _ShopState extends State<Shop> {
           "image": "assets/images/fish.png",
           "price": "4.99",
           "description": "3 pcs,Price",
+          "favourite": false,
+          "quantity": 1,
         },
       ]
     },
