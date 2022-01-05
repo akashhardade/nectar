@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
 bool isLogged = false;
@@ -9,6 +9,45 @@ void signInWithPhoneAuthCred(AuthCredential phoneAuthCredential) async {
 
   if (authCred.user != null) {
     isLogged = true;
+  }
+}
+
+class Myprovider extends ChangeNotifier {
+  var totalprice;
+  double abc = 0;
+  List<Map> uniqueCartList = [];
+
+  void returnTotalAmount() async {
+   
+   
+       totalprice = uniqueCartList
+          .map<double>(
+              (e) => e["quantity"] * e["price"])
+          .fold<double>(0,(value, element) => value+element);
+     
+    
+
+   
+    abc = double.parse((totalprice).toStringAsFixed(2));
+    notifyListeners();
+  }
+
+  void decrementCart(int currentindex) {
+    uniqueCartList[currentindex]["quantity"]--;
+    returnTotalAmount();
+   
+  }
+
+  void incrementCart(int currentindex) {
+    uniqueCartList[currentindex]["quantity"]++;
+    returnTotalAmount();
+   
+  }
+
+  void remove(int currentindex) {
+    uniqueCartList.removeAt(currentindex);
+    returnTotalAmount();
+    notifyListeners();
   }
 }
 
@@ -62,22 +101,6 @@ List<Map> data = [
     "description": "3 pcs,Price",
   },
 ];
-
-class Category {
-  final int? id;
-  final String? title;
-  final String? image;
-  final String? description;
-  final String? price;
-
-  Category({
-    this.id,
-    this.title,
-    this.image,
-    this.description,
-    this.price,
-  });
-}
 
 List<Map> categorylist = [
   {
@@ -362,15 +385,4 @@ List<Map> categorylist = [
 ];
 
 List<Map> cartList = [];
-
-List<Map> uniqueCartList = [];
-
-List<double> total = uniqueCartList
-    .map<double>((e) => double.parse(e["price"].toString()))
-    .toList();
-
-//  num sum = (total.reduce((a, b) => a + b));
-
 List<Map> favouriteList = [];
-
-//final Iterable dora = [1, 2, 3, 4];

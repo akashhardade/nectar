@@ -4,6 +4,7 @@ import 'package:nectar/classmodel.dart';
 import 'dart:ui';
 
 import 'package:nectar/screens/constants.dart';
+import 'package:provider/provider.dart';
 
 class OrderAccepted extends StatefulWidget {
   const OrderAccepted({Key? key}) : super(key: key);
@@ -15,12 +16,10 @@ class OrderAccepted extends StatefulWidget {
 class _OrderAcceptedState extends State<OrderAccepted> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    setState(() {
-      uniqueCartList.clear();
-      print(uniqueCartList);
-    });
+    final uniquecartlist =
+        Provider.of<Myprovider>(context, listen: false).uniqueCartList;
+    uniquecartlist.clear();
   }
 
   @override
@@ -44,7 +43,7 @@ class _OrderAcceptedState extends State<OrderAccepted> {
             Center(
               child: Image(
                   height: 220,
-                  // width: 200,
+                
                   image: AssetImage("assets/images/order_Accepted.png")),
             ),
             SizedBox(

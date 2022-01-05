@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nectar/bottombar/product_detail.dart';
 import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
+import 'package:provider/provider.dart';
 
 class Shop extends StatefulWidget {
   const Shop({Key? key}) : super(key: key);
@@ -106,7 +107,10 @@ class _ShopState extends State<Shop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body:Consumer<Myprovider>(builder: (context, value, child){
+        dynamic uniqueCartList = value.uniqueCartList;
+      
+      return SafeArea(
         child: Center(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -716,7 +720,7 @@ class _ShopState extends State<Shop> {
             ),
           ),
         ),
-      ),
-    );
+      );
+      }));
   }
 }

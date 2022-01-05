@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+
 
 class Detail extends StatefulWidget {
   final Map product;
@@ -18,7 +19,10 @@ class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
+        body: Consumer<Myprovider>(builder: (context, value, child){
+        dynamic uniqueCartList = value.uniqueCartList;
+        
+       return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
@@ -299,7 +303,7 @@ class _DetailState extends State<Detail> {
                         setState(() {
                           cartList.add(temp);
 
-                          uniqueCartList = cartList
+                          uniqueCartList= cartList
                               .where((product) => seen.add(product))
                               .toList();
                         });
@@ -323,6 +327,7 @@ class _DetailState extends State<Detail> {
           )
         ],
       ),
-    ));
+    );
+        }));
   }
 }

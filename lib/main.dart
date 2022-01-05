@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:nectar/classmodel.dart';
 import 'package:nectar/screens/splash.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +15,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Gilroy-ExtraBold'),
+    return ChangeNotifierProvider(create:  (context) => Myprovider(),
+      child: MaterialApp(
+        home:
+         HomePage(),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'Gilroy-ExtraBold'),
+      ),
     );
   }
 }
