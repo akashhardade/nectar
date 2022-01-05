@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/Screens/homescreen/productdetails.dart';
 import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CategoryProductList extends StatefulWidget {
   final Map products;
@@ -115,37 +116,39 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    InkWell(
-                                      onTap: () {
-                                        Map temp = widget
-                                            .products["subcategory"][index];
-                                        var seen = Set<Map>();
-                                        setState(() {
-                                          cartitems.add(temp);
-                                          sortcartlist = cartitems
-                                              .where((product) =>
-                                                  seen.add(product))
-                                              .toList();
-                                          print(cartitems);
-                                        });
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content:
-                                                    Text("Added to cart")));
-                                      },
-                                      child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        decoration: BoxDecoration(
-                                          color: kgreen,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                   Consumer(
+                                      builder: (context, ref,_) {
+                                        return InkWell(
+                                          onTap: () {
+                                            // Map temp = widget
+                                            //     .products["subcategory"][index];
+                                    
+                                    
+                                    
+                                        //  var cart = context.read(cartprovider);  
+                                           ref.
+                                    
+                                    
+                                            // ScaffoldMessenger.of(context)
+                                            //     .showSnackBar(SnackBar(
+                                            //         content:
+                                            //             Text("Added to cart")));
+                                          },
+                                          child: Container(
+                                            height: 40,
+                                            width: 40,
+                                            decoration: BoxDecoration(
+                                              color: kgreen,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        );
+                                      }
                                     )
                                   ],
                                 )

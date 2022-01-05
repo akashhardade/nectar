@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/Screens/homescreen/Homepage.dart';
 import 'package:grocery/Screens/loginscreen/googlesignin.dart';
@@ -13,10 +14,14 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+   late FirebaseAuth _auth;
+  late User? user;
   @override
   void initState() {
     super.initState();
     starttimer();
+     _auth = FirebaseAuth.instance;
+    user = _auth.currentUser;
   }
 
   starttimer() async {
@@ -24,9 +29,10 @@ class _SplashState extends State<Splash> {
     return Timer(duration, route);
   }
 
+
   route() async {
     final islogin = await GoogleSignInApi.isSigndIn();
-    if (islogin == true) {
+    if (islogin == true || user != null ) {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => HomePage()));
     } else {

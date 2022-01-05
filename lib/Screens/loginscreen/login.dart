@@ -107,7 +107,10 @@ class _LoginState extends State<Login> {
                     height: 20,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (_) => HomePage()));
+                    },
                     child: Container(
                       height: 60,
                       width: double.infinity,

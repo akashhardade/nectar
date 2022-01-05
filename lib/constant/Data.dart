@@ -1,3 +1,5 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 List<Map> categories = [
   {
     "category": "Fresh fruit & vegetables",
@@ -235,6 +237,29 @@ List<Map> categories = [
   }
 ];
 
-List<Map> cartitems = [];
-List<Map> sortcartlist = [];
+final cartprovider = Provider((ref)=>  Cartprovider()  );
+
+class Cartprovider {
+  int totalprice = 0;
+  List<Map> cartitems = [];
+  void addtocart(Map item) {
+    if (!cartitems.contains(item)) {
+      cartitems.add(item);
+    }
+  }
+
+  void gettotal() {
+    List totalpricelist = [];
+    for (int i = 0; i <= cartitems.length - 1; i++) {
+      var totalqunantityprice = cartitems
+          .map((e) => cartitems[i]["price"] * cartitems[i]["quantity"])
+          .fold(0, (value, element) => value);
+      totalpricelist.add(totalqunantityprice);
+    }
+    totalprice = totalpricelist.fold(0, (value, element) => element + value);
+  }
+}
+
+// List<Map> sortcartlist = [];
+
 List<Map> favouriteitems = [];

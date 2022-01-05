@@ -40,15 +40,15 @@ class _FavoriteState extends State<Favorite> {
                   setState(() {
                     sortcartlist.addAll(favouriteitems);
                     favouriteitems.clear();
-
+                   
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(seconds: 1),
                         content: Text("Added all products to cart")));
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  shape:  RoundedRectangleBorder(
-                    borderRadius:  BorderRadius.circular(20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   primary: kgreen,
                 ),

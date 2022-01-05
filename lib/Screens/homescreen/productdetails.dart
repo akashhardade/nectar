@@ -68,12 +68,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                     IconButton(
                       onPressed: () {
                         setState(() {
+                          if (favouriteitems.length == 0) {
+                            setState(() {
+                              widget.product["favourite"] = false;
+                            });
+                          }
                           Map items = widget.product;
                           if (widget.product["favourite"] == true) {
-                            widget.product["favourite"] = true;
                             favouriteitems.remove(items);
                           } else {
-                            widget.product["favourite"] = false;
                             favouriteitems.add(items);
                           }
                           setState(() {
@@ -281,20 +284,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     onPressed: () {
                       Map temp = widget.product;
-                      var seen = Set<Map>();
-                      setState(() {
-                        cartitems.add(temp);
-                        
-                        sortcartlist = cartitems
-                            .where((product) => seen.add(product))
-                            .toList();
-                      });
+                      
+                    
+                    
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Added to cart")));
                     },
                     style: ElevatedButton.styleFrom(
-                      shape:  RoundedRectangleBorder(
-                        borderRadius:  BorderRadius.circular(20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       primary: kgreen,
                     ),
