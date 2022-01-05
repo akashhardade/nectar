@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductDetails extends StatefulWidget {
-  final Map product;
+  final Map<String, dynamic> product;
   ProductDetails({Key? key, required this.product}) : super(key: key);
 
   @override
@@ -73,7 +74,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               widget.product["favourite"] = false;
                             });
                           }
-                          Map items = widget.product;
+                          Map<String, dynamic> items = widget.product;
                           if (widget.product["favourite"] == true) {
                             favouriteitems.remove(items);
                           } else {
@@ -283,10 +284,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
                     ),
                     onPressed: () {
-                      Map temp = widget.product;
-                      
-                    
-                    
+                      Map<String, dynamic> temp = widget.product;
+                      context
+                          .read(cartProvider.notifier)
+                          .addtocart(Product.fromMap(temp));
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Added to cart")));
                     },

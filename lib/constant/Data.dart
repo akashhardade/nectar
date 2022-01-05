@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 List<Map> categories = [
@@ -237,29 +239,148 @@ List<Map> categories = [
   }
 ];
 
-final cartprovider = Provider((ref)=>  Cartprovider()  );
+final cartProvider = StateNotifierProvider<Cartprovider, List<Product>>(
+    (ref) => Cartprovider([]));
 
-class Cartprovider {
-  int totalprice = 0;
-  List<Map> cartitems = [];
-  void addtocart(Map item) {
-    if (!cartitems.contains(item)) {
-      cartitems.add(item);
+class Cartprovider extends StateNotifier<List<Product>> {
+  Cartprovider(List<Product> state) : super(state);
+
+  void addtocart(Product item) {
+    if (!state.contains(item)) {
+      state = [...state, item];
     }
   }
 
-  void gettotal() {
-    List totalpricelist = [];
-    for (int i = 0; i <= cartitems.length - 1; i++) {
-      var totalqunantityprice = cartitems
-          .map((e) => cartitems[i]["price"] * cartitems[i]["quantity"])
-          .fold(0, (value, element) => value);
-      totalpricelist.add(totalqunantityprice);
-    }
-    totalprice = totalpricelist.fold(0, (value, element) => element + value);
+  void removeFromcart(Product item) {
+    state = [
+      for (final product in state)
+        if (item != product) product,
+    ];
+  }
+
+  void addAll(List<Product> item) {
+    state = [...state, ...item];
+  }
+
+  void clearAll() {
+    state = [];
+  }
+
+  double get gettotal {
+    return state
+        .map<double>((e) => double.parse((e.price * e.quantity).toString()))
+        .fold<double>(0, (value, element) => value + element);
+  }
+
+  void increaseQuantity(int index) {
+    final _item = List.of(state)[index];
+    final _updated = _item.copyWith(quantity: _item.quantity + 1);
+
+    state = List.of(state.map((e) => e.id == _updated.id ? _updated : e));
+  }
+
+  void decreaseQuantity(int index) {
+    final _item = List.of(state)[index];
+    final _updated = _item.copyWith(quantity: _item.quantity - 1);
+
+    state = List.of(state.map((e) => e.id == _updated.id ? _updated : e));
   }
 }
 
 // List<Map> sortcartlist = [];
 
-List<Map> favouriteitems = [];
+List<Map<String, dynamic>> favouriteitems = [];
+
+class Product {
+  final int id;
+  final String title;
+  final String image;
+  final String description;
+  final bool favourite;
+  final int quantity;
+  final double price;
+
+  Product(
+    this.id,
+    this.title,
+    this.image,
+    this.description,
+    this.favourite,
+    this.quantity,
+    this.price,
+  );
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Product &&
+        other.id == id &&
+        other.title == title &&
+        other.image == image &&
+        other.description == description &&
+        other.favourite == favourite &&
+        other.quantity == quantity &&
+        other.price == price;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        title.hashCode ^
+        image.hashCode ^
+        description.hashCode ^
+        favourite.hashCode ^
+        quantity.hashCode ^
+        price.hashCode;
+  }
+
+  Product copyWith({
+    int? id,
+    String? title,
+    String? image,
+    String? description,
+    bool? favourite,
+    int? quantity,
+    double? price,
+  }) {
+    return Product(
+      id ?? this.id,
+      title ?? this.title,
+      image ?? this.image,
+      description ?? this.description,
+      favourite ?? this.favourite,
+      quantity ?? this.quantity,
+      price ?? this.price,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'image': image,
+      'description': description,
+      'favourite': favourite,
+      'quantity': quantity,
+      'price': price,
+    };
+  }
+
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      map['id']?.toInt() ?? 0,
+      map['title'] ?? '',
+      map['image'] ?? '',
+      map['description'] ?? '',
+      map['favourite'] ?? false,
+      map['quantity']?.toInt() ?? 0,
+      map['price']?.toDouble() ?? 0.0,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source));
+}

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 class Favorite extends StatefulWidget {
   Favorite({Key? key}) : super(key: key);
 
@@ -38,9 +38,10 @@ class _FavoriteState extends State<Favorite> {
                 ),
                 onPressed: () {
                   setState(() {
-                    sortcartlist.addAll(favouriteitems);
+                    context.read(cartProvider.notifier).addAll(
+                        favouriteitems.map((e) => Product.fromMap(e)).toList());
                     favouriteitems.clear();
-                   
+
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         duration: Duration(seconds: 1),
                         content: Text("Added all products to cart")));

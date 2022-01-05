@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:grocery/Screens/homescreen/Homepage.dart';
 import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
@@ -15,7 +17,7 @@ class _OrderAcceptedState extends State<OrderAccepted> {
   @override
   void initState() {
     super.initState();
-    sortcartlist.clear();
+    context.read(cartProvider.notifier).clearAll();
   }
 
   @override

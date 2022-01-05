@@ -68,26 +68,20 @@ class _CartState extends State<Cart> {
                       style:
                           TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
                     ),
-                    if (finalprice == 0)
-                      Container(
-                        width: 60,
-                      )
-                    else
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xFF489E67),
-                            borderRadius: BorderRadius.circular(5)),
-                        // child:
-                        //  Padding(
-                        //     padding: const EdgeInsets.all(5.0),
-                        //     child:
-                        //      Consumer(builder: (context, watch, child) {
-                        //       final finalprice = context.read(grandtotal);
-                        //       final value = finalprice.state;
-                        //       return Text("\$ $value");
-                        //     }
-                        //     ))
-                      )
+                    Consumer(builder: (context, watch, child) {
+                      final cart = watch(cartProvider);
+                      final notifier = watch(cartProvider.notifier);
+                      final value = notifier.gettotal.toStringAsFixed(2);
+                      if (cart.isEmpty) return Container(width: 60);
+                      return Container(
+                          decoration: BoxDecoration(
+                              color: Color(0xFF489E67),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text("\$ $value"),
+                          ));
+                    })
                   ],
                 ),
                 onPressed: () {
@@ -387,133 +381,128 @@ class _CartState extends State<Cart> {
       ],
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: sortcartlist.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Container(
-                  height: 140,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Colors.grey.withOpacity(0.5), width: 0.5)),
-                  ),
-                  child: Row(
-                    children: [
-                      Image(
-                        height: 100,
-                        width: 100,
-                        image: AssetImage("${sortcartlist[index]["image"]}"),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "${sortcartlist[index]["title"]}",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("${sortcartlist[index]["description"]}"),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: Icon(Icons.remove,
-                                        color:
-                                            sortcartlist[index]["quantity"] >= 1
+        child: Consumer(builder: (context, watch, _) {
+          return ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: watch(cartProvider).length,
+              itemBuilder: (context, index) {
+                final _item = watch(cartProvider)[index];
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  child: Container(
+                    height: 140,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Colors.grey.withOpacity(0.5), width: 0.5)),
+                    ),
+                    child: Row(
+                      children: [
+                        Image(
+                          height: 100,
+                          width: 100,
+                          image: AssetImage("${_item.image}"),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "${_item.title}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("${_item.description}"),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: <Widget>[
+                                    IconButton(
+                                        icon: Icon(Icons.remove,
+                                            color: _item.quantity >= 2
                                                 ? kgreen
                                                 : Colors.grey),
-                                    onPressed: () => {
-                                      if (sortcartlist[index]["quantity"] >= 2)
-                                        {
-                                          setState(() =>
-                                              sortcartlist[index]["quantity"]--)
-                                        }
-                                    },
-                                  ),
-                                  Container(
-                                      alignment: Alignment.center,
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(7),
-                                          border: Border.all(
-                                              color: Colors.black38)),
-                                      child: Text(sortcartlist[index]
-                                              ["quantity"]
-                                          .toString())),
-                                  IconButton(
-                                      icon: Icon(Icons.add, color: kgreen),
-                                      onPressed: () => setState(() =>
-                                          sortcartlist[index]["quantity"]++))
-                                ],
-                              ),
-                              SizedBox(
-                                width: 52,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(),
-                              child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      sortcartlist.removeAt(index);
-                                      cartitems.clear();
-                                      // cartitems.removeWhere((element) =>
-                                      //         sortcartlist[index]["id"] = element["id"]);
-                                      // totalpricelist.removeAt(index);
-                                      print(cartitems);
-                                      print(totalpricelist);
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.clear,
-                                    size: 20,
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Text("Rs. ${sortcartlist[index]["price"]}",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
+                                        onPressed: () {
+                                          if (_item.quantity >= 2) {
+                                            watch(cartProvider.notifier)
+                                                .decreaseQuantity(index);
+                                          }
+                                        }),
+                                    Container(
+                                        alignment: Alignment.center,
+                                        height: 30,
+                                        width: 30,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(7),
+                                            border: Border.all(
+                                                color: Colors.black38)),
+                                        child: Text(_item.quantity.toString())),
+                                    IconButton(
+                                        icon: Icon(Icons.add, color: kgreen),
+                                        onPressed: () {
+                                          watch(cartProvider.notifier)
+                                              .increaseQuantity(index);
+                                        })
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 52,
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                      )
-                    ],
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(),
+                                child: IconButton(
+                                    onPressed: () {
+                                      context
+                                          .read(cartProvider.notifier)
+                                          .removeFromcart(_item);
+                                    },
+                                    icon: Icon(
+                                      Icons.clear,
+                                      size: 20,
+                                    )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text("Rs. ${_item.price}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              });
+        }),
       ),
     );
   }
