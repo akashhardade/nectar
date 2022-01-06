@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 List<Map> categories = [
@@ -236,30 +237,53 @@ List<Map> categories = [
     ]
   }
 ];
+final cartprovider =
+    ChangeNotifierProvider<Cartprovider>((ref) => Cartprovider());
 
-final cartprovider = Provider((ref)=>  Cartprovider()  );
-
-class Cartprovider {
-  int totalprice = 0;
+class Cartprovider extends ChangeNotifier {
+  double totalprice = 0;
   List<Map> cartitems = [];
+
   void addtocart(Map item) {
     if (!cartitems.contains(item)) {
       cartitems.add(item);
+      gettotal();
+      notifyListeners();
+      print(cartitems);
     }
+  }
+
+  void removecart(Map item) {
+    cartitems.remove(item);
+    gettotal();
+    notifyListeners();
+  }
+
+  void clearcart() {
+    cartitems.clear();
+    gettotal();
+    print(cartitems);
+    notifyListeners();
+  }
+
+  void incrementcounter(int index) {
+    cartitems[index]["quantity"]++;
+    gettotal();
+    notifyListeners();
+  }
+
+  void decrementcounter(int index) {
+    cartitems[index]["quantity"]--;
+    gettotal();
   }
 
   void gettotal() {
-    List totalpricelist = [];
-    for (int i = 0; i <= cartitems.length - 1; i++) {
-      var totalqunantityprice = cartitems
-          .map((e) => cartitems[i]["price"] * cartitems[i]["quantity"])
-          .fold(0, (value, element) => value);
-      totalpricelist.add(totalqunantityprice);
-    }
-    totalprice = totalpricelist.fold(0, (value, element) => element + value);
+    totalprice = cartitems
+        .map<double>((e) => e["price"] * e["quantity"])
+        .fold(0, (value, element) => value + element);
+
+    notifyListeners();
   }
 }
-
-// List<Map> sortcartlist = [];
 
 List<Map> favouriteitems = [];

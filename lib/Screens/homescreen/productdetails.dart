@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -276,26 +277,29 @@ class _ProductDetailsState extends State<ProductDetails> {
                 SizedBox(
                   height: 50,
                   width: double.infinity,
-                  child: ElevatedButton(
-                    child: Text(
-                      'Add to Basket',
-                      style:
-                          TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
-                    ),
-                    onPressed: () {
-                      Map temp = widget.product;
-                      
-                    
-                    
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Added to cart")));
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      return ElevatedButton(
+                        child: Text(
+                          'Add to Basket',
+                          style: TextStyle(
+                              fontFamily: 'Gilory-Light', fontSize: 18),
+                        ),
+                        onPressed: () {
+                          Map temp = widget.product;
+                          ref(cartprovider).addtocart(temp);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Added to cart")));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          primary: kgreen,
+                        ),
+                      );
                     },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      primary: kgreen,
-                    ),
                   ),
                 )
               ])),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grocery/Screens/homescreen/productdetails.dart';
 import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
@@ -18,28 +19,28 @@ class _ShopState extends State<Shop> {
           "id": 1,
           "title": "banana",
           "image": "assets/images/banana.png",
-          "price": 50,
+          "price": 50.0,
           "description": "6 pcs",
           "favourite": false,
-        "quantity": 1,
+          "quantity": 1,
         },
         {
           "id": 2,
           "title": "apple",
           "image": "assets/images/apple.png",
-          "price": 100,
+          "price": 100.0,
           "description": "1 kg",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 3,
           "title": "elichi banana",
           "image": "assets/images/banana.png",
-          "price": 10,
+          "price": 10.0,
           "description": "6 pcs",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
       ],
       "bestselling": [
@@ -47,28 +48,28 @@ class _ShopState extends State<Shop> {
           "id": 4,
           "title": "ginger",
           "image": "assets/images/ginger.png",
-          "price": 45,
+          "price": 45.0,
           "description": "100 gm",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 5,
           "title": "red capsicum",
           "image": "assets/images/bellpaper.png",
-          "price": 5,
+          "price": 5.0,
           "description": "1 kg",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 6,
           "title": "cucumber",
           "image": "assets/images/banana.png",
-          "price": 30,
+          "price": 30.0,
           "description": "1 kg",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
       ],
       "groceries": [
@@ -76,28 +77,28 @@ class _ShopState extends State<Shop> {
           "id": 7,
           "title": "chicken",
           "image": "assets/images/chicken.png",
-          "price": 45,
+          "price": 45.0,
           "description": "1 kg",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 8,
           "title": "beef",
           "image": "assets/images/beef.png",
-          "price":5,
+          "price": 5.0,
           "description": "1 kg",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
         {
           "id": 9,
           "title": "mutton",
           "image": "assets/images/chicken.png",
-          "price": 30,
+          "price": 30.0,
           "description": "1 kg",
-           "favourite": false,
-        "quantity": 1,
+          "favourite": false,
+          "quantity": 1,
         },
       ],
     },
@@ -185,13 +186,13 @@ class _ShopState extends State<Shop> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  setState(() {
-                                    currentindex = index;
-                                  });
+                                  // setState(() {
+                                  //   currentindex = index;
+                                  // });
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (_) => ProductDetails(
                                           product: products[0]["exclusive"]
-                                              [currentindex])));
+                                              [index])));
                                 },
                                 child: Container(
                                   height: 250,
@@ -246,30 +247,35 @@ class _ShopState extends State<Shop> {
                                             SizedBox(
                                               width: 60,
                                             ),
-                                            InkWell(
-                                              onTap:(){
-                                                 Map temp = products[0]["exclusive"][index];
-                      var seen = Set<Map>();
-                      setState(() {
-                        cartitems.add(temp);
-                        sortcartlist = cartitems
-                            .where((product) => seen.add(product))
-                            .toList();
-                        print(cartitems);
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Added to cart")));
+                                            Consumer(
+                                              builder: (context, ref, child) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    Map temp = products[0]
+                                                        ["exclusive"][index];
+                                                    ref(cartprovider)
+                                                        .addtocart(temp);
+
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                            content: Text(
+                                                                "Added to cart")));
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration: BoxDecoration(
+                                                      color: kgreen,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Icon(Icons.add,
+                                                        color: Colors.white),
+                                                  ),
+                                                );
                                               },
-                                              child: Container(
-                                                height: 40,
-                                                width: 40,
-                                                decoration: BoxDecoration(
-                                                  color: kgreen,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: Icon(Icons.add,color:Colors.white),
-                                              ),
                                             ),
                                           ],
                                         ),
@@ -318,14 +324,13 @@ class _ShopState extends State<Shop> {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                   setState(() {
+                                  setState(() {
                                     currentindex = index;
                                   });
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (_) => ProductDetails(
                                           product: products[0]["bestselling"]
                                               [currentindex])));
-
                                 },
                                 child: Container(
                                   height: 250,
@@ -380,30 +385,34 @@ class _ShopState extends State<Shop> {
                                             SizedBox(
                                               width: 60,
                                             ),
-                                            InkWell(
-                                              onTap: (){
-                                                 Map temp = products[0]["bestselling"][index];
-                      var seen = Set<Map>();
-                      setState(() {
-                        cartitems.add(temp);
-                        sortcartlist = cartitems
-                            .where((product) => seen.add(product))
-                            .toList();
-                        print(cartitems);
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Added to cart")));
+                                            Consumer(
+                                              builder: (context, ref, child) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    Map temp = products[0]
+                                                        ["bestselling"][index];
+                                                    ref(cartprovider)
+                                                        .addtocart(temp);
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                            content: Text(
+                                                                "Added to cart")));
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration: BoxDecoration(
+                                                      color: kgreen,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Icon(Icons.add,
+                                                        color: Colors.white),
+                                                  ),
+                                                );
                                               },
-                                              child: Container(
-                                                height: 40,
-                                                width: 40,
-                                                decoration: BoxDecoration(
-                                                  color: kgreen,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: Icon(Icons.add,color:Colors.white),
-                                              ),
                                             ),
                                           ],
                                         ),
@@ -522,7 +531,7 @@ class _ShopState extends State<Shop> {
                               padding: const EdgeInsets.only(right: 15.0),
                               child: InkWell(
                                 onTap: () {
-                                    setState(() {
+                                  setState(() {
                                     currentindex = index;
                                   });
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -583,29 +592,34 @@ class _ShopState extends State<Shop> {
                                             SizedBox(
                                               width: 60,
                                             ),
-                                            InkWell(
-                                              onTap: (){
-                                                 Map temp = products[0]["groceries"][index];
-                      var seen = Set<Map>();
-                      setState(() {
-                        cartitems.add(temp);
-                        sortcartlist = cartitems
-                            .where((product) => seen.add(product))
-                            .toList();
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Added to cart")));
+                                            Consumer(
+                                              builder: (context, ref, child) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    Map temp = products[0]
+                                                        ["groceries"][index];
+                                                    ref(cartprovider)
+                                                        .addtocart(temp);
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(SnackBar(
+                                                            content: Text(
+                                                                "Added to cart")));
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration: BoxDecoration(
+                                                      color: kgreen,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    child: Icon(Icons.add,
+                                                        color: Colors.white),
+                                                  ),
+                                                );
                                               },
-                                              child: Container(
-                                                height: 40,
-                                                width: 40,
-                                                decoration: BoxDecoration(
-                                                  color: kgreen,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: Icon(Icons.add,color:Colors.white),
-                                              ),
                                             ),
                                           ],
                                         ),

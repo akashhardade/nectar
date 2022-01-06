@@ -116,40 +116,32 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                   Consumer(
-                                      builder: (context, ref,_) {
-                                        return InkWell(
-                                          onTap: () {
-                                            // Map temp = widget
-                                            //     .products["subcategory"][index];
-                                    
-                                    
-                                    
-                                        //  var cart = context.read(cartprovider);  
-                                           ref.
-                                    
-                                    
-                                            // ScaffoldMessenger.of(context)
-                                            //     .showSnackBar(SnackBar(
-                                            //         content:
-                                            //             Text("Added to cart")));
-                                          },
-                                          child: Container(
-                                            height: 40,
-                                            width: 40,
-                                            decoration: BoxDecoration(
-                                              color: kgreen,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                            ),
+                                    Consumer(builder: (context, ref, child) {
+                                      return InkWell(
+                                        onTap: () {
+                                          Map temp = widget
+                                              .products["subcategory"][index];
+                                          ref(cartprovider).addtocart(temp);
+                                          // ScaffoldMessenger.of(context)
+                                          //     .showSnackBar(SnackBar(
+                                          //         content:
+                                          //             Text("Added to cart")));
+                                        },
+                                        child: Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                            color: kgreen,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
-                                        );
-                                      }
-                                    )
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      );
+                                    })
                                   ],
                                 )
                               ],

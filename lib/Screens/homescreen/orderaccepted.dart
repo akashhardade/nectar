@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/Screens/homescreen/Homepage.dart';
-import 'package:grocery/constant/Data.dart';
 import 'package:grocery/constant/constant.dart';
 import 'dart:ui';
 
@@ -15,7 +14,7 @@ class _OrderAcceptedState extends State<OrderAccepted> {
   @override
   void initState() {
     super.initState();
-    sortcartlist.clear();
+    // sortcartlist.clear();
   }
 
   @override

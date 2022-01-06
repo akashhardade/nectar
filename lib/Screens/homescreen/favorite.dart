@@ -38,7 +38,12 @@ class _FavoriteState extends State<Favorite> {
                 ),
                 onPressed: () {
                   setState(() {
-                    sortcartlist.addAll(favouriteitems);
+                  
+                  
+                  
+                  
+                  
+                    // sort.addAll(favouriteitems);
                     favouriteitems.clear();
                    
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

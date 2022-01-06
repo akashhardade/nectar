@@ -17,20 +17,19 @@ class _CartState extends State<Cart> {
   @override
   void initState() {
     super.initState();
-    // gettotalprice();
   }
 
   bool hasinternet = false;
 
-  checkinternet() async {
-    hasinternet = await InternetConnectionChecker().hasConnection;
-    if (hasinternet == true) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => OrderAccepted()));
-    } else {
-      internetissue(context);
-    }
-  }
+  // checkinternet() async {
+  //   hasinternet = await InternetConnectionChecker().hasConnection;
+  //   if (hasinternet == true) {
+  //     Navigator.of(context)
+  //         .push(MaterialPageRoute(builder: (_) => OrderAccepted()));
+  //   } else {
+  //     internetissue(context);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -68,26 +67,18 @@ class _CartState extends State<Cart> {
                       style:
                           TextStyle(fontFamily: 'Gilory-Light', fontSize: 18),
                     ),
-                    if (finalprice == 0)
-                      Container(
-                        width: 60,
-                      )
-                    else
-                      Container(
+                    Container(
                         decoration: BoxDecoration(
                             color: Color(0xFF489E67),
                             borderRadius: BorderRadius.circular(5)),
-                        // child:
-                        //  Padding(
-                        //     padding: const EdgeInsets.all(5.0),
-                        //     child:
-                        //      Consumer(builder: (context, watch, child) {
-                        //       final finalprice = context.read(grandtotal);
-                        //       final value = finalprice.state;
-                        //       return Text("\$ $value");
-                        //     }
-                        //     ))
-                      )
+                        child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Consumer(builder: (context, ref, child) {
+                              final finalprice = ref(cartprovider)
+                                  .totalprice
+                                  .toStringAsFixed(2);
+                              return Text("\$ $finalprice");
+                            })))
                   ],
                 ),
                 onPressed: () {
@@ -285,12 +276,20 @@ class _CartState extends State<Cart> {
                                     Container(
                                       child: Row(
                                         children: [
-                                          Text(
-                                            "\$ 28.16",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
+                                          Consumer(
+                                            builder: (context, ref, child) {
+                                              var value = ref(cartprovider)
+                                                  .totalprice
+                                                  .toStringAsFixed(2);
+                                              return Text(
+                                                "\$ $value",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              );
+                                            },
                                           ),
                                           IconButton(
                                               onPressed: () {},
@@ -349,22 +348,39 @@ class _CartState extends State<Cart> {
                               SizedBox(
                                 height: 50,
                                 width: MediaQuery.of(context).size.width * 0.90,
-                                child: ElevatedButton(
-                                  child: Text(
-                                    'Track order',
-                                    style: TextStyle(
-                                        fontFamily: 'Gilory-Light',
-                                        fontSize: 18),
-                                  ),
-                                  onPressed: () {
-                                    checkinternet();
+                                child: Consumer(
+                                  builder: (context, ref, child) {
+                                    return ElevatedButton(
+                                      child: Text(
+                                        'Track order',
+                                        style: TextStyle(
+                                            fontFamily: 'Gilory-Light',
+                                            fontSize: 18),
+                                      ),
+                                      onPressed: () async {
+                                        hasinternet =
+                                            await InternetConnectionChecker()
+                                                .hasConnection;
+                                        if (hasinternet == true) {
+                                          ref(cartprovider).clearcart();
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      OrderAccepted()));
+                                        } else {
+                                          internetissue(context);
+                                        }
+                                        // }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        primary: kgreen,
+                                      ),
+                                    );
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    primary: kgreen,
-                                  ),
                                 ),
                               ),
                             ],
@@ -387,133 +403,154 @@ class _CartState extends State<Cart> {
       ],
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: sortcartlist.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Container(
-                  height: 140,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Colors.grey.withOpacity(0.5), width: 0.5)),
-                  ),
-                  child: Row(
-                    children: [
-                      Image(
-                        height: 100,
-                        width: 100,
-                        image: AssetImage("${sortcartlist[index]["image"]}"),
+        child: Consumer(
+          builder: (context, ref, child) {
+            return ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: ref(cartprovider).cartitems.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    child: Container(
+                      height: 140,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.grey.withOpacity(0.5),
+                                width: 0.5)),
                       ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Row(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "${sortcartlist[index]["title"]}",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                            ],
+                          Image(
+                            height: 100,
+                            width: 100,
+                            image: AssetImage(
+                                "${ref(cartprovider).cartitems[index]["image"]}"),
                           ),
                           SizedBox(
-                            height: 10,
+                            width: 20,
                           ),
-                          Text("${sortcartlist[index]["description"]}"),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: Icon(Icons.remove,
-                                        color:
-                                            sortcartlist[index]["quantity"] >= 1
-                                                ? kgreen
-                                                : Colors.grey),
-                                    onPressed: () => {
-                                      if (sortcartlist[index]["quantity"] >= 2)
-                                        {
-                                          setState(() =>
-                                              sortcartlist[index]["quantity"]--)
-                                        }
-                                    },
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "${ref(cartprovider).cartitems[index]["title"]}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
                                   ),
-                                  Container(
-                                      alignment: Alignment.center,
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(7),
-                                          border: Border.all(
-                                              color: Colors.black38)),
-                                      child: Text(sortcartlist[index]
-                                              ["quantity"]
-                                          .toString())),
-                                  IconButton(
-                                      icon: Icon(Icons.add, color: kgreen),
-                                      onPressed: () => setState(() =>
-                                          sortcartlist[index]["quantity"]++))
                                 ],
                               ),
                               SizedBox(
-                                width: 52,
+                                height: 10,
                               ),
+                              Text(
+                                  "${ref(cartprovider).cartitems[index]["description"]}"),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: <Widget>[
+                                      Consumer(builder: (context, ref, child) {
+                                        return IconButton(
+                                          icon: Icon(Icons.remove,
+                                              color: ref(cartprovider)
+                                                              .cartitems[index]
+                                                          ["quantity"] >=
+                                                      1
+                                                  ? kgreen
+                                                  : Colors.grey),
+                                          onPressed: () => {
+                                            if (ref(cartprovider)
+                                                        .cartitems[index]
+                                                    ["quantity"] >=
+                                                2)
+                                              {
+                                                ref(cartprovider)
+                                                    .decrementcounter(index)
+                                              }
+                                          },
+                                        );
+                                      }),
+                                      Container(
+                                          alignment: Alignment.center,
+                                          height: 30,
+                                          width: 30,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(7),
+                                              border: Border.all(
+                                                  color: Colors.black38)),
+                                          child: Text(ref(cartprovider)
+                                              .cartitems[index]["quantity"]
+                                              .toString())),
+                                      Consumer(
+                                        builder: (context, ref, child) {
+                                          return IconButton(
+                                              icon: Icon(Icons.add,
+                                                  color: kgreen),
+                                              onPressed: () => ref(cartprovider)
+                                                  .incrementcounter(index));
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 52,
+                                  ),
+                                ],
+                              )
                             ],
+                          ),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(),
+                                  child: Consumer(
+                                    builder: (context, ref, child) {
+                                      return IconButton(
+                                          onPressed: () {
+                                            ref(cartprovider).removecart(
+                                                ref(cartprovider)
+                                                    .cartitems[index]);
+                                          },
+                                          icon: Icon(
+                                            Icons.clear,
+                                            size: 20,
+                                          ));
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 20),
+                                  child: Text(
+                                      "\$ ${ref(cartprovider).cartitems[index]["price"] * ref(cartprovider).cartitems[index]["quantity"]}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
-                      Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(),
-                              child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      sortcartlist.removeAt(index);
-                                      cartitems.clear();
-                                      // cartitems.removeWhere((element) =>
-                                      //         sortcartlist[index]["id"] = element["id"]);
-                                      // totalpricelist.removeAt(index);
-                                      print(cartitems);
-                                      print(totalpricelist);
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.clear,
-                                    size: 20,
-                                  )),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 20),
-                              child: Text("Rs. ${sortcartlist[index]["price"]}",
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            }),
+                    ),
+                  );
+                });
+          },
+        ),
       ),
     );
   }
