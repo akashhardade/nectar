@@ -237,16 +237,13 @@ class _ShopState extends State<Shop> {
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                                 "\$ ${products[0]["exclusive"][index]["price"]}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18)),
-                                            SizedBox(
-                                              width: 60,
-                                            ),
                                             Consumer(
                                               builder: (context, ref, child) {
                                                 return InkWell(
@@ -375,16 +372,13 @@ class _ShopState extends State<Shop> {
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                                 "\$ ${products[0]["bestselling"][index]["price"]}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18)),
-                                            SizedBox(
-                                              width: 60,
-                                            ),
                                             Consumer(
                                               builder: (context, ref, child) {
                                                 return InkWell(
@@ -582,16 +576,13 @@ class _ShopState extends State<Shop> {
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                                 "\$ ${products[0]["groceries"][index]["price"]}",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 18)),
-                                            SizedBox(
-                                              width: 60,
-                                            ),
                                             Consumer(
                                               builder: (context, ref, child) {
                                                 return InkWell(

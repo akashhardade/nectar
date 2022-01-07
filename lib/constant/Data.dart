@@ -244,6 +244,7 @@ class Cartprovider extends ChangeNotifier {
   double totalprice = 0;
   List<Map> cartitems = [];
 
+  List<Map> favouriteitems = [];
   void addtocart(Map item) {
     if (!cartitems.contains(item)) {
       cartitems.add(item);
@@ -266,6 +267,12 @@ class Cartprovider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void additemfavtocart() {
+    cartitems.addAll(favouriteitems);
+    favouriteitems.clear();
+    notifyListeners();
+  }
+ 
   void incrementcounter(int index) {
     cartitems[index]["quantity"]++;
     gettotal();
@@ -285,5 +292,3 @@ class Cartprovider extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-List<Map> favouriteitems = [];

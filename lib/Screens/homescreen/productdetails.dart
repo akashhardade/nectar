@@ -66,37 +66,46 @@ class _ProductDetailsState extends State<ProductDetails> {
                     Text("${widget.product["title"]}",
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold)),
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          if (favouriteitems.length == 0) {
+                    Consumer(
+                      builder: (context, ref, child) {
+                        return IconButton(
+                          onPressed: () {
                             setState(() {
-                              widget.product["favourite"] = false;
+                              if (ref(cartprovider).favouriteitems.length ==
+                                  0) {
+                                setState(() {
+                                  widget.product["favourite"] = false;
+                                });
+                              }
+                              // Map items = widget.product;
+                              if (widget.product["favourite"] == true) {
+                                ref(cartprovider)
+                                    .favouriteitems
+                                    .remove(widget.product);
+                              } else {
+                                ref(cartprovider)
+                                    .favouriteitems
+                                    .add(widget.product);
+                              }
+                              setState(() {
+                                widget.product["favourite"] =
+                                    !widget.product["favourite"];
+                              });
+                              print(ref(cartprovider).favouriteitems);
                             });
-                          }
-                          Map items = widget.product;
-                          if (widget.product["favourite"] == true) {
-                            favouriteitems.remove(items);
-                          } else {
-                            favouriteitems.add(items);
-                          }
-                          setState(() {
-                            widget.product["favourite"] =
-                                !widget.product["favourite"];
-                          });
-                          print(favouriteitems);
-                        });
+                          },
+                          icon: widget.product["favourite"] == false
+                              ? Icon(
+                                  Icons.favorite_outline,
+                                  size: 30,
+                                )
+                              : Icon(
+                                  Icons.favorite,
+                                  color: kgreen,
+                                  size: 30,
+                                ),
+                        );
                       },
-                      icon: widget.product["favourite"] == false
-                          ? Icon(
-                              Icons.favorite_outline,
-                              size: 30,
-                            )
-                          : Icon(
-                              Icons.favorite,
-                              color: kgreen,
-                              size: 30,
-                            ),
                     ),
                   ],
                 ),

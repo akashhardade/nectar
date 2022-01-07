@@ -122,6 +122,7 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                           Map temp = widget
                                               .products["subcategory"][index];
                                           ref(cartprovider).addtocart(temp);
+                                          SnackBar(content: Text("Added to cart"));
                                           // ScaffoldMessenger.of(context)
                                           //     .showSnackBar(SnackBar(
                                           //         content:
