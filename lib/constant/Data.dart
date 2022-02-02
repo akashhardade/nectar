@@ -246,7 +246,7 @@ class Cartprovider extends ChangeNotifier {
 
   List<Map> favouriteitems = [];
   void addtocart(Map item) {
-    if (!cartitems.contains(item)) {
+    if (!cartitems.any((element) => element["id"] == item["id"])) {
       cartitems.add(item);
       gettotal();
       notifyListeners();
@@ -268,11 +268,18 @@ class Cartprovider extends ChangeNotifier {
   }
 
   void additemfavtocart() {
-    cartitems.addAll(favouriteitems);
+    // favouriteitems.removeWhere((element) => cartitems.contains());
+    favouriteitems.forEach((element) {
+      if (cartitems.any((item) => item["id"] == element["id"])) {
+        favouriteitems.remove(element);
+      } else {
+        cartitems.add(element);
+      }
+    });
     favouriteitems.clear();
     notifyListeners();
   }
- 
+
   void incrementcounter(int index) {
     cartitems[index]["quantity"]++;
     gettotal();

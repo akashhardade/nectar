@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/Screens/homescreen/Homepage.dart';
 import 'package:grocery/constant/constant.dart';
-import 'dart:ui';
 
 class OrderAccepted extends StatefulWidget {
   const OrderAccepted({Key? key}) : super(key: key);

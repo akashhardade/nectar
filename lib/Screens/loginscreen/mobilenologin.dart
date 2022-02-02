@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 // import 'package:grocery/Screens/homescreen/Homepage.dart';
 import 'package:grocery/Screens/loginscreen/otpverify.dart';
 // import 'package:grocery/Screens/loginscreen/otpverify.dart';
@@ -56,7 +54,6 @@ class _MobileLoginState extends State<MobileLogin> {
                 Container(
                   child: InternationalPhoneNumberInput(
                     textFieldController: mobnoController,
-                    
                     maxLength: 10,
                     onInputChanged: (PhoneNumber number) {},
                     selectorConfig: SelectorConfig(
@@ -93,7 +90,6 @@ class _MobileLoginState extends State<MobileLogin> {
           ),
           onPressed: () async {
             if (_formkey.currentState!.validate()) {
-             
               await _auth.verifyPhoneNumber(
                   phoneNumber: "+91${mobnoController.text}",
                   verificationCompleted: (phoneAuthCredential) async {},
@@ -105,6 +101,8 @@ class _MobileLoginState extends State<MobileLogin> {
                               OtpVerify(verificationId: verificationId)));
                       this.verificationId = verificationId;
                     });
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("otp send at $mobnoController number")));
                   },
                   codeAutoRetrievalTimeout: (verificationId) async {});
             }
