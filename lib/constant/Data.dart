@@ -251,6 +251,8 @@ class Cartprovider extends ChangeNotifier {
       gettotal();
       notifyListeners();
       print(cartitems);
+    } else {
+      incrementcounter(cartitems.indexOf(item));
     }
   }
 
@@ -271,10 +273,13 @@ class Cartprovider extends ChangeNotifier {
     // favouriteitems.removeWhere((element) => cartitems.contains());
     favouriteitems.forEach((element) {
       if (cartitems.any((item) => item["id"] == element["id"])) {
+        // print(cartitems.indexOf(element).abs());
+        incrementcounter(cartitems.indexOf(element).abs());
         favouriteitems.remove(element);
       } else {
         cartitems.add(element);
       }
+      notifyListeners();
     });
     favouriteitems.clear();
     notifyListeners();
@@ -299,3 +304,95 @@ class Cartprovider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+// List<Map> products = [
+//   {
+//     "exclusive": [
+//       {
+//         "id": 1,
+//         "title": "banana",
+//         "image": "assets/images/banana.png",
+//         "price": 50.0,
+//         "description": "6 pcs",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//       {
+//         "id": 2,
+//         "title": "apple",
+//         "image": "assets/images/apple.png",
+//         "price": 100.0,
+//         "description": "1 kg",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//       {
+//         "id": 3,
+//         "title": "elichi banana",
+//         "image": "assets/images/banana.png",
+//         "price": 10.0,
+//         "description": "6 pcs",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//     ],
+//     "bestselling": [
+//       {
+//         "id": 4,
+//         "title": "ginger",
+//         "image": "assets/images/ginger.png",
+//         "price": 45.0,
+//         "description": "100 gm",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//       {
+//         "id": 5,
+//         "title": "red capsicum",
+//         "image": "assets/images/bellpaper.png",
+//         "price": 5.0,
+//         "description": "1 kg",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//       {
+//         "id": 6,
+//         "title": "cucumber",
+//         "image": "assets/images/banana.png",
+//         "price": 30.0,
+//         "description": "1 kg",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//     ],
+//     "groceries": [
+//       {
+//         "id": 7,
+//         "title": "chicken",
+//         "image": "assets/images/chicken.png",
+//         "price": 45.0,
+//         "description": "1 kg",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//       {
+//         "id": 8,
+//         "title": "beef",
+//         "image": "assets/images/beef.png",
+//         "price": 5.0,
+//         "description": "1 kg",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//       {
+//         "id": 9,
+//         "title": "mutton",
+//         "image": "assets/images/chicken.png",
+//         "price": 30.0,
+//         "description": "1 kg",
+//         "favourite": false,
+//         "quantity": 1,
+//       },
+//     ],
+//   },
+// ];

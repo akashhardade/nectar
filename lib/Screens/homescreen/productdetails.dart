@@ -17,12 +17,31 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Color(0xffF2F3F2),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(
+              Icons.keyboard_arrow_left,
+              size: 40,
+              color: Colors.black,
+            )),
+        actions: [
+          Icon(
+            Icons.logout,
+            color: Colors.black,
+          )
+        ],
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(children: [
-          SizedBox(
-            height: 20,
-          ),
+          // SizedBox(
+          //   height: 20,
+          // ),
           Stack(
             children: [
               Container(
@@ -33,17 +52,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                         bottomRight: Radius.circular(30))),
                 height: 300,
                 width: double.infinity,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: Icon(Icons.arrow_back_ios)),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.logout))
-                ],
               ),
               Center(
                 child: Padding(
@@ -71,13 +79,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                         return IconButton(
                           onPressed: () {
                             setState(() {
-                              if (ref(cartprovider).favouriteitems.length ==
-                                  0) {
-                                setState(() {
-                                  widget.product["favourite"] = false;
-                                });
-                              }
-                              // Map items = widget.product;
                               if (widget.product["favourite"] == true) {
                                 ref(cartprovider)
                                     .favouriteitems
@@ -95,6 +96,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             });
                           },
                           icon: widget.product["favourite"] == false
+                              // && ref(cartprovider).favouriteitems.length == 0
                               ? Icon(
                                   Icons.favorite_outline,
                                   size: 30,

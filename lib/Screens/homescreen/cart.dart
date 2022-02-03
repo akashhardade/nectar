@@ -158,7 +158,9 @@ class _CartState extends State<Cart> {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           IconButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
                                               icon: Icon(
                                                 Icons.keyboard_arrow_right,
                                                 size: 30,
@@ -350,34 +352,38 @@ class _CartState extends State<Cart> {
                                 width: MediaQuery.of(context).size.width * 0.90,
                                 child: Consumer(
                                   builder: (context, ref, child) {
-                                    return ElevatedButton(
-                                      child: Text(
-                                        'Track order',
-                                        style: TextStyle(
-                                            fontFamily: 'Gilory-Light',
-                                            fontSize: 18),
-                                      ),
-                                      onPressed: () async {
-                                        hasinternet =
-                                            await InternetConnectionChecker()
-                                                .hasConnection;
-                                        if (hasinternet == true) {
-                                          ref(cartprovider).clearcart();
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      OrderAccepted()));
-                                        } else {
-                                          internetissue(context);
-                                        }
-                                        // }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: ElevatedButton(
+                                        child: Text(
+                                          'Track order',
+                                          style: TextStyle(
+                                              fontFamily: 'Gilory-Light',
+                                              fontSize: 18),
                                         ),
-                                        primary: kgreen,
+                                        onPressed: () async {
+                                          hasinternet =
+                                              await InternetConnectionChecker()
+                                                  .hasConnection;
+                                          if (hasinternet == true) {
+                                            ref(cartprovider).clearcart();
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        OrderAccepted()));
+                                          } else {
+                                            internetissue(context);
+                                          }
+                                          // }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          primary: kgreen,
+                                        ),
                                       ),
                                     );
                                   },
